@@ -12,6 +12,8 @@ import com.example.cnc.DB.AppDatabase;
 import com.example.cnc.DB.CncDao;
 import com.example.cnc.databinding.ActivityMainBinding;
 
+import java.util.List;
+
 /**
  * @author Kyle Stefun
  * @since 2023.12.01
@@ -63,8 +65,10 @@ public class MainActivity extends AppCompatActivity {
     String username = usernameEdit.getText().toString();
     String password = passwordEdit.getText().toString();
     if(fieldsAreEmpty(username, password)) return;
-    if (cncDao.getUserByNameAndPassword(username, password).size() > 0) {
-      loginButton.setText("success");
+    List<User> queryResult = cncDao.getUserByNameAndPassword(username, password);
+    if (queryResult.size() == 1) {
+      loginButton.setText(R.string.logging_in);
+      playerLogin(queryResult.get(0).getUserId(), queryResult.get(0).getUsername());
     } else {
       loginButton.setText("failure");
     }
@@ -91,5 +95,17 @@ public class MainActivity extends AppCompatActivity {
       return true;
     }
     return false;
+  }
+
+  private void loginSplit(int userId, String username) {
+
+  }
+
+  private void playerLogin(int userId, String username) {
+    startActivity(Intents.charList(this, userId, username));
+  }
+
+  private boolean userIsDm(int userId) {
+    return cncDao.getDmById(userId).size() > 0;
   }
 }

@@ -4,4 +4,6 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="createUser">Create User</string>
+    <string name="charListLabel">%1$s\'s characters</string>
+    <string name="logging_in">Logging in...</string>
 </resources>
