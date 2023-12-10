@@ -3,7 +3,7 @@ package com.example.cnc;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.cnc.DB.CncDb;
+import com.example.cnc.DB.CncDatabase;
 
 /**
  * @author Kyle Stefun
@@ -11,7 +11,7 @@ import com.example.cnc.DB.CncDb;
  * Entity representing one user in the database.
  */
 
-@Entity(tableName = CncDb.USER_TABLE)
+@Entity(tableName = CncDatabase.USER_TABLE)
 public class User {
 
   @PrimaryKey(autoGenerate = true)

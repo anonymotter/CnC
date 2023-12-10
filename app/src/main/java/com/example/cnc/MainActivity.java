@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.cnc.DB.CncDb;
+import com.example.cnc.DB.CncDatabase;
 import com.example.cnc.DB.CncDao;
 import com.example.cnc.databinding.ActivityMainBinding;
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     loginButton = bind.loginButton;
     createUserButton = bind.createUserButton;
 
-    cncDao = Room.databaseBuilder(this, CncDb.class, CncDb.DATABASE_NAME)
+    cncDao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
         .allowMainThreadQueries().build().CnCDao();
 
     loginButton.setOnClickListener(new View.OnClickListener() {

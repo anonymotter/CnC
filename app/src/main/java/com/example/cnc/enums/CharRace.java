@@ -1,6 +1,6 @@
 package com.example.cnc.enums;
 
-public enum Race {
+public enum CharRace {
   HUMAN(0, "Human"),
   DWARF(1, "Dwarf"),
   VULCAN(2, "Vulcan"),
@@ -11,7 +11,7 @@ public enum Race {
   private final int id;
   private final String name;
 
-  Race(int id, String name) {
+  CharRace(int id, String name) {
     this.id = id;
     this.name = name;
   }
