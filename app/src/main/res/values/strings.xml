@@ -5,5 +5,11 @@
     <string name="password">Password</string>
     <string name="createUser">Create User</string>
     <string name="charListLabel">%1$s\'s characters</string>
-    <string name="logging_in">Logging in...</string>
+    <string name="logging_in">Logging in…</string>
+    <string name="campaignListLabel">%1$s\'s campaigns</string>
+    <string name="logOut">Log out</string>
+    <string name="takeDamage">Take damage</string>
+    <string name="rest">Rest</string>
+    <string name="levelUp">Level up</string>
+    <string name="hp">HP:</string>
 </resources>

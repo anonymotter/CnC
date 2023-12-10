@@ -4,14 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharListActivity">
+    tools:context=".CampaignListActivity">
+
+    <Button
+        android:id="@+id/dmLogoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/logOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/charListLabel"
+        android:id="@+id/campaignListLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:text="@string/charListLabel"
+        android:text="@string/campaignListLabel"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,20 +31,19 @@
         android:id="@+id/recyclerView"
         android:layout_width="380dp"
         android:layout_height="500dp"
-        android:layout_marginTop="72dp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="15dp" />
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="154dp" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="300sp"
+        android:layout_width="270sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="A recycler view here would be cool, wouldn't it"
+        android:text="Instead of having an admin button, this campaign list activity is a separate admin-only activity from the character list that normal users can access"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charListLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/campaignListLabel" />
 
     <Button
         android:id="@+id/button"
@@ -55,14 +64,4 @@
         android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/playerLogoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/logOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,6 +30,6 @@ public class CharSheetActivity extends AppCompatActivity {
   private void createBindings() {
     bind = ActivityCharSheetBinding.inflate(getLayoutInflater());
     charNameLabel = bind.charNameLabel;
-    charNameLabel.setText(dao.);
+    charNameLabel.setText("");
   }
 }

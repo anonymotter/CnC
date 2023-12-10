@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cnc.DB.CncDatabase;
 import com.example.cnc.DB.CncDao;
@@ -29,22 +30,21 @@ public class MainActivity extends AppCompatActivity {
 
   private ActivityMainBinding bind;
 
-  private CncDao cncDao;
+  private CncDao dao;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
     bind = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(bind.getRoot());
     usernameEdit = bind.usernameEdit;
     passwordEdit = bind.passwordEdit;
     loginButton = bind.loginButton;
     createUserButton = bind.createUserButton;
-
-    cncDao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
+    dao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
         .allowMainThreadQueries().build().CnCDao();
+    detectUser();
+    initUsers();
 
     loginButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -61,29 +61,27 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void login() {
-    String username = usernameEdit.getText().toString();
-    String password = passwordEdit.getText().toString();
-    if(fieldsAreEmpty(username, password)) return;
-    List<User> queryResult = cncDao.getUserByNameAndPassword(username, password);
-    if (queryResult.size() == 1) {
-      loginButton.setText(R.string.logging_in);
-      playerLogin(queryResult.get(0).getUserId(), queryResult.get(0).getUsername());
-    } else {
-      loginButton.setText("failure");
-    }
+  @Override
+  protected void onResume() {
+    super.onResume();
+    loginButton.setText(R.string.loginVerb);
   }
 
   private void createUser() {
     String username = usernameEdit.getText().toString();
     String password = passwordEdit.getText().toString();
     if(fieldsAreEmpty(username, password)) return;
-    if (cncDao.getUserByName(username).size() > 0) {
+    if (dao.getUserByName(username).size() > 0) {
       loginButton.setText("User already exists");
     } else {
-      cncDao.insert(new User(username, password, false));
+      dao.insert(new User(username, password, false));
       loginButton.setText("User created");
     }
+  }
+
+  private void detectUser() {
+    int userId = -1; //todo: implement sharedpreferences
+//    if (userId >= 0) loginSplit(); // figure out arguments
   }
 
   private boolean fieldsAreEmpty(String username, String password) {
@@ -97,15 +95,37 @@ public class MainActivity extends AppCompatActivity {
     return false;
   }
 
-  private void loginSplit(int userId, String username) {
-
+  private void initUsers() {
+    if (dao.getUserByName("testuser1").size() == 0) {
+      dao.insert(new User("testuser1", "testuser1", false));
+    }
+    if (dao.getUserByName("admin2").size() == 0) {
+      dao.insert(new User("admin2", "admin2", true));
+    }
   }
 
-  private void playerLogin(int userId, String username) {
-    startActivity(Intents.charList(this, userId, username));
+  private void login() {
+    String username = usernameEdit.getText().toString();
+    String password = passwordEdit.getText().toString();
+    if(fieldsAreEmpty(username, password)) return;
+    List<User> queryResult = dao.getUserByNameAndPassword(username, password);
+    if (queryResult.size() == 1) {
+      loginButton.setText(R.string.logging_in);
+      loginSplit(queryResult.get(0).getUserId(), queryResult.get(0).getUsername());
+    } else {
+      Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+  private void loginSplit(int userId, String username) {
+    if (userIsDm(userId)) {
+      startActivity(Intents.campaignList(this, userId, username));
+    } else {
+      startActivity(Intents.charList(this, userId, username));
+    }
   }
 
   private boolean userIsDm(int userId) {
-    return cncDao.getDmById(userId).size() > 0;
+    return dao.getDmById(userId).size() > 0;
   }
 }
