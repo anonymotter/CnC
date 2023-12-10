@@ -1,11 +1,13 @@
 <resources>
+    <string name="preferenceKey">preferenceKey</string>
+    <string name="usernameKey">usernameKey</string>
     <string name="app_name">CnC</string>
     <string name="loginVerb">Log in</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="createUser">Create User</string>
     <string name="charListLabel">%1$s\'s characters</string>
-    <string name="logging_in">Logging in…</string>
+    <string name="loggingIn">Logging in…</string>
     <string name="campaignListLabel">%1$s\'s campaigns</string>
     <string name="logOut">Log out</string>
     <string name="takeDamage">Take damage</string>

@@ -1,8 +1,12 @@
 package com.example.cnc;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
   private ActivityMainBinding bind;
 
+  private SharedPreferences pref;
+
   private CncDao dao;
 
   @Override
@@ -43,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
     createUserButton = bind.createUserButton;
     dao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
         .allowMainThreadQueries().build().CnCDao();
+    pref = getSharedPreferences(getString(R.string.preferenceKey),
+        Context.MODE_PRIVATE);
     detectUser();
     initUsers();
+
 
     loginButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -72,24 +81,29 @@ public class MainActivity extends AppCompatActivity {
     String password = passwordEdit.getText().toString();
     if(fieldsAreEmpty(username, password)) return;
     if (dao.getUserByName(username).size() > 0) {
-      loginButton.setText("User already exists");
+      Toast.makeText(this, "Username already in use", Toast.LENGTH_SHORT).show();
     } else {
       dao.insert(new User(username, password, false));
-      loginButton.setText("User created");
+      Toast.makeText(this, "User created", Toast.LENGTH_SHORT).show();
     }
   }
 
   private void detectUser() {
-    int userId = -1; //todo: implement sharedpreferences
-//    if (userId >= 0) loginSplit(); // figure out arguments
+    int userId = pref.getInt(getString(R.string.usernameKey), -1);
+    if (userId >= 0) {
+      List<User> query = dao.getUserById(userId);
+      if (query.size() > 0) {
+        loginSplit(userId, query.get(0).getUsername());
+      }
+    }
   }
 
   private boolean fieldsAreEmpty(String username, String password) {
     if (username.isEmpty()) {
-      loginButton.setText("Enter name");
+      Toast.makeText(this, "Enter username", Toast.LENGTH_SHORT).show();
       return true;
     } else if (password.isEmpty()) {
-      loginButton.setText("Enter password");
+      Toast.makeText(this, "Enter password", Toast.LENGTH_SHORT).show();
       return true;
     }
     return false;
@@ -102,16 +116,25 @@ public class MainActivity extends AppCompatActivity {
     if (dao.getUserByName("admin2").size() == 0) {
       dao.insert(new User("admin2", "admin2", true));
     }
+    if (dao.getUserByName("z").size() == 0) {
+      dao.insert(new User("z", "z", false));
+    }
+    if (dao.getUserByName("x").size() == 0) {
+      dao.insert(new User("x", "x", true));
+    }
   }
 
   private void login() {
     String username = usernameEdit.getText().toString();
     String password = passwordEdit.getText().toString();
     if(fieldsAreEmpty(username, password)) return;
-    List<User> queryResult = dao.getUserByNameAndPassword(username, password);
-    if (queryResult.size() == 1) {
-      loginButton.setText(R.string.logging_in);
-      loginSplit(queryResult.get(0).getUserId(), queryResult.get(0).getUsername());
+    List<User> query = dao.getUserByNameAndPassword(username, password);
+    if (query.size() == 1) {
+      loginButton.setText(R.string.loggingIn);
+      SharedPreferences.Editor prefEdit = pref.edit();
+      prefEdit.putInt(getString(R.string.usernameKey), query.get(0).getUserId());
+      prefEdit.apply();
+      loginSplit(query.get(0).getUserId(), query.get(0).getUsername());
     } else {
       Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
     }

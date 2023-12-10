@@ -22,7 +22,7 @@ public class Intents {
   }
 
   public static Intent campaignList(Context context, int userId, String username) {
-    Intent intent = new Intent (context, CampaignListActivity.class);
+    Intent intent = new Intent (context, CampaignActivity.class);
     intent.putExtra(USER_ID_KEY, userId);
     intent.putExtra(USERNAME_KEY, username);
     return intent;

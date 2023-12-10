@@ -31,6 +31,9 @@ public interface CncDao {
   @Query("SELECT * FROM " + CncDatabase.USER_TABLE)
   List<User> getAllUsers();
 
+  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE userId = :userId")
+  List<User> getUserById(int userId);
+
   @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE username = :username")
   List<User> getUserByName(String username);
 
