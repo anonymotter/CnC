@@ -1,6 +1,9 @@
 package com.example.cnc.DB;
 
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.cnc.enums.Race;
 
 /**
  * @author Kyle Stefun
@@ -10,5 +13,10 @@ import androidx.room.Entity;
 
 @Entity(tableName = CncDb.CHAR_TABLE)
 public class Character {
+
+  @PrimaryKey(autoGenerate = true)
+  private int charId;
+  private String name;
+  private Race race;
 
 }

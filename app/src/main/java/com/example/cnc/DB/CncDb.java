@@ -16,6 +16,7 @@ import com.example.cnc.User;
 public abstract class CncDb extends RoomDatabase {
   public static final String DATABASE_NAME = "CnC.db";
   public static final String USER_TABLE = "users_table";
+  public static final String CHAR_TABLE = "characters_table";
 
   private static volatile CncDb instance;
 
