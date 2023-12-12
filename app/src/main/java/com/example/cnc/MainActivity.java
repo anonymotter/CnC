@@ -41,17 +41,12 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    bind = ActivityMainBinding.inflate(getLayoutInflater());
-    setContentView(bind.getRoot());
-    usernameEdit = bind.usernameEdit;
-    passwordEdit = bind.passwordEdit;
-    loginButton = bind.loginButton;
-    createUserButton = bind.createUserButton;
+    initControls();
     dao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
         .allowMainThreadQueries().build().CnCDao();
     pref = getSharedPreferences(getString(R.string.preferenceKey),
         Context.MODE_PRIVATE);
-    detectUser();
+//    detectUser();
     initUsers();
 
 
@@ -76,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
     loginButton.setText(R.string.loginVerb);
   }
 
+  private void initControls() {
+    bind = ActivityMainBinding.inflate(getLayoutInflater());
+    setContentView(bind.getRoot());
+    usernameEdit = bind.usernameEdit;
+    passwordEdit = bind.passwordEdit;
+    loginButton = bind.loginButton;
+    createUserButton = bind.createUserButton;
+  }
+
   private void createUser() {
     String username = usernameEdit.getText().toString();
     String password = passwordEdit.getText().toString();
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void detectUser() {
-    int userId = pref.getInt(getString(R.string.usernameKey), -1);
+    int userId = pref.getInt(getString(R.string.userIdKey), -1);
     if (userId >= 0) {
       List<User> query = dao.getUserById(userId);
       if (query.size() > 0) {
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     if (query.size() == 1) {
       loginButton.setText(R.string.loggingIn);
       SharedPreferences.Editor prefEdit = pref.edit();
-      prefEdit.putInt(getString(R.string.usernameKey), query.get(0).getUserId());
+      prefEdit.putInt(getString(R.string.userIdKey), query.get(0).getUserId());
       prefEdit.apply();
       loginSplit(query.get(0).getUserId(), query.get(0).getUsername());
     } else {
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     if (userIsDm(userId)) {
       startActivity(Intents.campaignList(this, userId, username));
     } else {
-      startActivity(Intents.charList(this, userId, username));
+      startActivity(Intents.charList(this));
     }
   }
 

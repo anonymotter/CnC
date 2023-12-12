@@ -20,15 +20,16 @@ public class CharSheetActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(bind.getRoot());
-    createBindings();
+
+    initControls();
 
 
 
   }
 
-  private void createBindings() {
+  private void initControls() {
     bind = ActivityCharSheetBinding.inflate(getLayoutInflater());
+    setContentView(bind.getRoot());
     charNameLabel = bind.charNameLabel;
     charNameLabel.setText("");
   }

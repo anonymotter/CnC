@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/campaignListLabel" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/selectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

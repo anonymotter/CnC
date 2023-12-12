@@ -6,6 +6,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.cnc.PlayerChar;
 import com.example.cnc.User;
 
 /**
@@ -14,8 +15,7 @@ import com.example.cnc.User;
  * Database class for the C&C application.
  */
 
-@Database(entities = {User.class}, version = 1)
-//@TypeConverters({Converters.class})
+@Database(entities = {User.class, PlayerChar.class}, version = 2)
 public abstract class CncDatabase extends RoomDatabase {
   public static final String DATABASE_NAME = "CnC.db";
   public static final String USER_TABLE = "users_table";

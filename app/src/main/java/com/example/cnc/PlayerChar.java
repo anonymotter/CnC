@@ -14,7 +14,7 @@ import com.example.cnc.enums.CharRace;
  */
 
 @Entity(tableName = CncDatabase.CHAR_TABLE)
-public class Character {
+public class PlayerChar {
 
   @PrimaryKey(autoGenerate = true)
   private int charId;
@@ -31,8 +31,10 @@ public class Character {
   private int intelligence;
   private int cha;
 
-  public Character(String name, CharRace charRace, CharClass charClass, int level, int currentHp,
-                   int maxHp, int str, int dex, int con, int wis, int intelligence, int cha) {
+//  public PlayerChar() {};
+
+  public PlayerChar(String name, CharRace charRace, CharClass charClass, int level, int currentHp,
+                    int maxHp, int str, int dex, int con, int wis, int intelligence, int cha) {
     this.name = name;
     this.charRace = charRace;
     this.charClass = charClass;

@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.cnc.PlayerChar;
 import com.example.cnc.User;
 
 import java.util.List;
@@ -19,11 +20,27 @@ import java.util.List;
 @Dao
 public interface CncDao {
 
+  // characters table
+  @Insert
+  void insert(PlayerChar... playerChars);
+
+  @Update
+  void update(PlayerChar... playerChars);
+
+  @Delete
+  void delete(PlayerChar playerChars);
+
+  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE charId = :charId")
+  List<PlayerChar> getCharById(int charId);
+
+
+
+  // users table
   @Insert
   void insert(User... users);
 
   @Update
-  void upgrade(User... users);
+  void update(User... users);
 
   @Delete
   void delete(User user);

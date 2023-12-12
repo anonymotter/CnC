@@ -1,6 +1,6 @@
 <resources>
     <string name="preferenceKey">preferenceKey</string>
-    <string name="usernameKey">usernameKey</string>
+    <string name="userIdKey">userIdKey</string>
     <string name="app_name">CnC</string>
     <string name="loginVerb">Log in</string>
     <string name="username">Username</string>
@@ -14,4 +14,5 @@
     <string name="rest">Rest</string>
     <string name="levelUp">Level up</string>
     <string name="hp">HP:</string>
+    <string name="create">Create</string>
 </resources>
