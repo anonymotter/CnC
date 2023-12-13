@@ -33,6 +33,9 @@ public interface CncDao {
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE charId = :charId")
   List<PlayerChar> getCharById(int charId);
 
+  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE userId = :userId")
+  List<PlayerChar> getCharsByUserId(int userId);
+
 
 
   // users table

@@ -18,6 +18,7 @@ public class PlayerChar {
 
   @PrimaryKey(autoGenerate = true)
   private int charId;
+  private int userId;
   private String name;
   private CharRace charRace;
   private CharClass charClass;
@@ -33,8 +34,9 @@ public class PlayerChar {
 
 //  public PlayerChar() {};
 
-  public PlayerChar(String name, CharRace charRace, CharClass charClass, int level, int currentHp,
+  public PlayerChar(int userId, String name, CharRace charRace, CharClass charClass, int level, int currentHp,
                     int maxHp, int str, int dex, int con, int wis, int intelligence, int cha) {
+    this.userId = userId;
     this.name = name;
     this.charRace = charRace;
     this.charClass = charClass;
@@ -55,6 +57,14 @@ public class PlayerChar {
 
   public void setCharId(int charId) {
     this.charId = charId;
+  }
+
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 
   public String getName() {

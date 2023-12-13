@@ -3,6 +3,8 @@ package com.example.cnc;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,8 @@ public class CharCreateActivity extends AppCompatActivity {
 
   private ActivityCharCreateBinding bind;
   private CncDao dao;
+  private SharedPreferences pref;
+  private Integer userId;
 
   Button createButton;
 
@@ -30,9 +34,10 @@ public class CharCreateActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initControls();
-    dao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
-        .allowMainThreadQueries().build().CnCDao();
 
+    dao = Static.getDao();
+    pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
+    userId = pref.getInt(getString(R.string.userIdKey), -1);
   }
 
   private void initControls() {
@@ -50,9 +55,9 @@ public class CharCreateActivity extends AppCompatActivity {
 
   private void create() {
     if (dao.getCharById(0).size() == 0) {
-      dao.insert(new PlayerChar("String name", CharRace.HUMAN, CharClass.MATHEMATICIAN, 1,
+      dao.insert(new PlayerChar(userId, "String name", CharRace.HUMAN, CharClass.MATHEMATICIAN, 1,
       10, 10, 11, 11, 11, 11, 11, 11));
-      startActivity(Intents.charList(this));
+//      startActivity(Intents.charList(this));
     }
   }
 }

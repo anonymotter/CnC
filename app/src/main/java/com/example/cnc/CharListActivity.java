@@ -6,7 +6,6 @@ package com.example.cnc;
  */
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnc.DB.CncDao;
-import com.example.cnc.DB.CncDatabase;
 import com.example.cnc.databinding.ActivityCharListBinding;
 
 public class CharListActivity extends AppCompatActivity {
@@ -37,25 +35,14 @@ public class CharListActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-//    setContentView(R.layout.activity_char_list);
     initControls();
-    dao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
-        .allowMainThreadQueries().build().CnCDao();
-    pref = getSharedPreferences(getString(R.string.preferenceKey),
-        Context.MODE_PRIVATE);
-
-//    username = getIntent().getStringExtra(Intents.USERNAME_KEY);
-//    userId = getIntent().getIntExtra(Intents.USER_ID_KEY, -1);
+    dao = Static.getDao();
+    pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
     userId = pref.getInt(getString(R.string.userIdKey), -1);
-    username = userId.toString();
-    StringBuilder sb = new StringBuilder();
-    sb.append(username).append(R.string.charListLabel);
+    username = dao.getUserById(userId).get(0).getUsername();
+    Integer numChars = dao.getCharsByUserId(userId).size();
     charListLabel.setText(getString(R.string.charListLabel, username));
-//    SharedPreferences prefs = getSharedPreferences("prefkey", Context.MODE_PRIVATE);
-//    prefs.getInt("key", -1);
-
-
-
+    charListLabel.setText(numChars.toString());
 
   }
 

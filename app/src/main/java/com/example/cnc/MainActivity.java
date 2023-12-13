@@ -3,7 +3,6 @@ package com.example.cnc;
 import static android.app.PendingIntent.getActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.cnc.DB.CncDatabase;
 import com.example.cnc.DB.CncDao;
 import com.example.cnc.databinding.ActivityMainBinding;
 
@@ -42,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initControls();
-    dao = Room.databaseBuilder(this, CncDatabase.class, CncDatabase.DATABASE_NAME)
-        .allowMainThreadQueries().build().CnCDao();
+    dao = Static.initDatabase(this);
     pref = getSharedPreferences(getString(R.string.preferenceKey),
         Context.MODE_PRIVATE);
 //    detectUser();
