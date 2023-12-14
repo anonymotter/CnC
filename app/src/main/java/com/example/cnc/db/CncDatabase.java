@@ -5,20 +5,18 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.cnc.PlayerChar;
-import com.example.cnc.User;
-
 /**
  * @author Kyle Stefun
  * @since 2023.12.01
  * Database class for the C&C application.
  */
 
-@Database(entities = {User.class, PlayerChar.class}, version = 2)
+@Database(entities = {User.class, PlayerChar.class, Campaign.class}, version = 2)
 public abstract class CncDatabase extends RoomDatabase {
   public static final String DATABASE_NAME = "CnC.db";
   public static final String USER_TABLE = "users_table";
   public static final String CHAR_TABLE = "characters_table";
+  public static final String CAMPAIGN_TABLE = "campaigns_table";
 
   private static volatile CncDatabase instance;
 

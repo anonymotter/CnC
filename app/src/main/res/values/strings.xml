@@ -29,13 +29,24 @@
     <string name="classColon">Class:</string>
     <string-array name="racesArray">
         <item>Human</item>
+        <item>Dwarf</item>
         <item>Vulcan</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Hutt</item>
+        <item>Ur-Quan</item>
+        <item>Cheat</item>
+        <item>Indianapolis 500</item>
+    </string-array>
+    <string-array name="classesArray">
+        <item>Warrior</item>
+        <item>Thief</item>
+        <item>Wizard</item>
+        <item>Commando</item>
+        <item>Mathematician</item>
+        <item>Problem Sleuth</item>
+        <item>Proletariat</item>
+        <item>MainActivity</item>
+        <item>Mammalia</item>
+        <item>CST 338</item>
     </string-array>
 
 </resources>

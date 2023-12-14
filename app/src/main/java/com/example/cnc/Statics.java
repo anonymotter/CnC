@@ -14,7 +14,7 @@ import com.example.cnc.db.CncDatabase;
  * think of anything.
  */
 
-public class Static {
+public class Statics {
   private static CncDao dao;
 
   public static CncDao getDao() {

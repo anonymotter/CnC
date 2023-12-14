@@ -6,19 +6,25 @@ public enum CharClass {
   WIZARD(2, "Wizard"),
   COMMANDO(3, "Commando"),
   MATHEMATICIAN(4, "Mathematician"),
-  MAIN_ACTIVITY(5, "MainActivity"),
-  MAMMALIA(6, "Mammalia"),
-  CST_338(7, "CST 338"),
-  BOURGEOISIE(8, "Bourgeoisie"),
-  PROLETARIAT(9, "Proletariat");
+  PROBLEM_SLEUTH(5, "Problem Sleuth"),
+  PROLETARIAT(6, "Proletariat"),
+  MAIN_ACTIVITY(7, "MainActivity"),
+  MAMMALIA(8, "Mammalia"),
+  CST_338(9, "CST 338");
 
-  static int count;
   private final int id;
   private final String name;
 
   CharClass(int id, String name) {
     this.id = id;
     this.name = name;
+  }
+
+  public static CharClass byId(int id) {
+    for (CharClass item : values()) {
+      if(item.id == id) return item;
+    }
+    return null;
   }
 
   public int getId() {

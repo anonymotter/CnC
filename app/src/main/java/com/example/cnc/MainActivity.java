@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityMainBinding;
+import com.example.cnc.db.User;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initControls();
-    dao = Static.initDatabase(this);
+    dao = Statics.initDatabase(this);
     pref = getSharedPreferences(getString(R.string.preferenceKey),
         Context.MODE_PRIVATE);
 //    detectUser();

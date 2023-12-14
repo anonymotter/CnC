@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharListBinding;
+import com.example.cnc.db.PlayerChar;
 import com.example.cnc.recyclerview.CharAdapter;
 
 import java.util.List;
@@ -37,21 +38,18 @@ public class CharListActivity extends AppCompatActivity {
   private Button createButton;
   private RecyclerView recyclerView;
 
-  private PlayerChar[] data;
-
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initControls();
-    dao = Static.getDao();
+    dao = Statics.getDao();
     pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
     userId = pref.getInt(getString(R.string.userIdKey), -1);
     username = dao.getUserById(userId).get(0).getUsername();
-    Integer numChars = dao.getCharsByUserId(userId).size();
+    int numChars = dao.getCharsByUserId(userId).size();
     charListLabel.setText(getString(R.string.charListLabel, username));
-    charListLabel.setText(numChars.toString());
-    initData();
+    charListLabel.setText(String.valueOf(numChars));
+    initRecyclerView();
   }
 
   private void initControls() {
@@ -77,12 +75,8 @@ public class CharListActivity extends AppCompatActivity {
     });
   }
 
-  private void initData() {
+  private void initRecyclerView() {
     List<PlayerChar> query = dao.getCharsByUserId(userId);
-//    data = new PlayerChar[query.size()];
-//    for (int i = 0; i < query.size(); i++) {
-//      data[i] = query.get(i);
-//    }
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(new CharAdapter(query));
   }

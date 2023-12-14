@@ -5,8 +5,9 @@ public enum CharRace {
   DWARF(1, "Dwarf"),
   VULCAN(2, "Vulcan"),
   HUTT(3, "Hutt"),
-  CHEAT(4, "Cheat"),
-  INDY_500(5, "Indianapolis 500");
+  URQUAN(4, "Ur-Quan"),
+  CHEAT(5, "Cheat"),
+  INDY_500(6, "Indianapolis 500");
 
   static int count;
   private final int id;
@@ -15,6 +16,13 @@ public enum CharRace {
   CharRace(int id, String name) {
     this.id = id;
     this.name = name;
+  }
+
+  public static CharRace byId(int id) {
+    for (CharRace item : values()) {
+      if(item.id == id) return item;
+    }
+    return null;
   }
 
   public int getId() {

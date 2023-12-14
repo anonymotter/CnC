@@ -6,9 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.cnc.PlayerChar;
-import com.example.cnc.User;
-
 import java.util.List;
 
 /**
@@ -54,10 +51,10 @@ public interface CncDao {
   @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE userId = :userId")
   List<User> getUserById(int userId);
 
-  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE username = :username")
+  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE name = :username")
   List<User> getUserByName(String username);
 
-  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE username = :username AND password = :password")
+  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE name = :username AND description = :password")
   List<User> getUserByNameAndPassword(String username, String password);
 
   @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE userId = :userId AND isDm = 1")

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharSheetBinding;
+import com.example.cnc.db.PlayerChar;
 
 public class CharSheetActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class CharSheetActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    dao = Static.getDao();
+    dao = Statics.getDao();
     int charId = getIntent().getIntExtra(Intents.CHAR_ID_KEY, -1);
     if(charId == -1) return;
     character = dao.getCharById(charId).get(0);
