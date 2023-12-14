@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cnc.DB.CncDao;
+import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCampaignBinding;
 
 public class CampaignActivity extends AppCompatActivity {

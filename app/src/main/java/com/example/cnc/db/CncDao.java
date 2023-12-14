@@ -1,4 +1,4 @@
-package com.example.cnc.DB;
+package com.example.cnc.db;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

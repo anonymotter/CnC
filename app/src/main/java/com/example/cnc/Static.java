@@ -4,8 +4,8 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.example.cnc.DB.CncDao;
-import com.example.cnc.DB.CncDatabase;
+import com.example.cnc.db.CncDao;
+import com.example.cnc.db.CncDatabase;
 
 /**
  * @author Kyle Stefun

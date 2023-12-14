@@ -1,10 +1,9 @@
-package com.example.cnc.DB;
+package com.example.cnc.db;
 
 import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
 import com.example.cnc.PlayerChar;
 import com.example.cnc.User;

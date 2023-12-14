@@ -3,7 +3,7 @@ package com.example.cnc;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.cnc.DB.CncDatabase;
+import com.example.cnc.db.CncDatabase;
 
 /**
  * @author Kyle Stefun

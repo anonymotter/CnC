@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.cnc.DB.CncDao;
+import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityMainBinding;
 
 import java.util.List;

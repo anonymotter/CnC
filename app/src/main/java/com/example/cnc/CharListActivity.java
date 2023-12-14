@@ -6,6 +6,8 @@ package com.example.cnc;
  */
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,8 +17,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cnc.DB.CncDao;
+import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharListBinding;
+import com.example.cnc.recyclerview.CharAdapter;
+
+import java.util.List;
 
 public class CharListActivity extends AppCompatActivity {
 
@@ -31,6 +36,10 @@ public class CharListActivity extends AppCompatActivity {
   private Button logoutButton;
   private Button selectButton;
   private Button createButton;
+  private RecyclerView recyclerView;
+
+  private PlayerChar[] data;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +52,7 @@ public class CharListActivity extends AppCompatActivity {
     Integer numChars = dao.getCharsByUserId(userId).size();
     charListLabel.setText(getString(R.string.charListLabel, username));
     charListLabel.setText(numChars.toString());
-
+    initData();
   }
 
   private void initControls() {
@@ -53,6 +62,7 @@ public class CharListActivity extends AppCompatActivity {
     logoutButton = bind.playerLogoutButton;
     selectButton = bind.selectButton;
     createButton = bind.createCharButton;
+    recyclerView = bind.recyclerView;
 
     logoutButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -76,6 +86,16 @@ public class CharListActivity extends AppCompatActivity {
     });
   }
 
+  private void initData() {
+    List<PlayerChar> query = dao.getCharsByUserId(userId);
+//    data = new PlayerChar[query.size()];
+//    for (int i = 0; i < query.size(); i++) {
+//      data[i] = query.get(i);
+//    }
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(new CharAdapter(query));
+  }
+
   private void createChar() {
     startActivity(Intents.charCreate(this));
   }
@@ -87,7 +107,7 @@ public class CharListActivity extends AppCompatActivity {
     startActivity(Intents.login(this));
   }
 
-  private void selectChar(int index) {
+  public void selectChar(int index) {
     if (dao.getCharById(0).size() != 0) {
       startActivity(Intents.charSheet(this, index));
     } else {

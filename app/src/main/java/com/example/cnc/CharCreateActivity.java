@@ -1,7 +1,6 @@
 package com.example.cnc;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,10 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.cnc.DB.CncDao;
-import com.example.cnc.DB.CncDatabase;
+import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharCreateBinding;
-import com.example.cnc.databinding.ActivityCharSheetBinding;
 import com.example.cnc.enums.CharClass;
 import com.example.cnc.enums.CharRace;
 
@@ -55,7 +52,7 @@ public class CharCreateActivity extends AppCompatActivity {
 
   private void create() {
     if (dao.getCharById(0).size() == 0) {
-      dao.insert(new PlayerChar(userId, "String name", CharRace.HUMAN, CharClass.MATHEMATICIAN, 1,
+      dao.insert(new PlayerChar(userId, "Surak", CharRace.VULCAN, CharClass.MATHEMATICIAN, 1,
       10, 10, 11, 11, 11, 11, 11, 11));
 //      startActivity(Intents.charList(this));
     }
