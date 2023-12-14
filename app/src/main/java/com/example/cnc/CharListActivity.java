@@ -34,7 +34,6 @@ public class CharListActivity extends AppCompatActivity {
 
   private TextView charListLabel;
   private Button logoutButton;
-  private Button selectButton;
   private Button createButton;
   private RecyclerView recyclerView;
 
@@ -60,7 +59,6 @@ public class CharListActivity extends AppCompatActivity {
     setContentView(bind.getRoot());
     charListLabel = bind.charListLabel;
     logoutButton = bind.playerLogoutButton;
-    selectButton = bind.selectButton;
     createButton = bind.createCharButton;
     recyclerView = bind.recyclerView;
 
@@ -68,13 +66,6 @@ public class CharListActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         logout();
-      }
-    });
-
-    selectButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        selectChar(0); //todo: incorporate index of current selection
       }
     });
 
