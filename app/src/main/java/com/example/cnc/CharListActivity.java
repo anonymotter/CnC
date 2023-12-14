@@ -1,10 +1,5 @@
 package com.example.cnc;
 
-/**
- * @author Kyle Stefun
- * @since 2023.12.05
- */
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +17,11 @@ import com.example.cnc.databinding.ActivityCharListBinding;
 import com.example.cnc.recyclerview.CharAdapter;
 
 import java.util.List;
+
+/**
+ * @author Kyle Stefun
+ * @since 2023.12.05
+ */
 
 public class CharListActivity extends AppCompatActivity {
 

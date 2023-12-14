@@ -15,6 +15,18 @@
     <string name="levelUp">Level up</string>
     <string name="hp">HP:</string>
     <string name="create">Create</string>
+    <string name="createNew">Create new</string>
+    <string name="createCharacter">Create character</string>
+    <string name="str">STR</string>
+    <string name="strColon">STR:</string>
+    <string name="name">Name</string>
+    <string name="dexColon">DEX:</string>
+    <string name="conColon">CON:</string>
+    <string name="wisColon">WIS:</string>
+    <string name="intColon">INT:</string>
+    <string name="chaColon">CHA:</string>
+    <string name="raceColon">Race:</string>
+    <string name="classColon">Class:</string>
     <string-array name="racesArray">
         <item>Human</item>
         <item>Vulcan</item>

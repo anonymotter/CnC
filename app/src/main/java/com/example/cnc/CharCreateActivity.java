@@ -44,7 +44,7 @@ public class CharCreateActivity extends AppCompatActivity {
     bind = ActivityCharCreateBinding.inflate(getLayoutInflater());
     setContentView(bind.getRoot());
     createButton = bind.createFinishButton;
-    raceSpinner = bind.raceDropdown;
+    raceSpinner = bind.raceSpinner;
     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
         this, R.array.racesArray, android.R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
