@@ -4,8 +4,9 @@ public enum CharRace {
   HUMAN(0, "Human"),
   DWARF(1, "Dwarf"),
   VULCAN(2, "Vulcan"),
-  RODIAN(3, "Rodian"),
-  CHEAT(4, "Cheat");
+  HUTT(3, "Hutt"),
+  CHEAT(4, "Cheat"),
+  INDY_500(5, "Indianapolis 500");
 
   static int count;
   private final int id;

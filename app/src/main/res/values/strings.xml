@@ -15,4 +15,15 @@
     <string name="levelUp">Level up</string>
     <string name="hp">HP:</string>
     <string name="create">Create</string>
+    <string-array name="racesArray">
+        <item>Human</item>
+        <item>Vulcan</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
 </resources>

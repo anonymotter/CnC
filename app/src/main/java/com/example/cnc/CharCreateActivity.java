@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharCreateBinding;
@@ -26,6 +28,7 @@ public class CharCreateActivity extends AppCompatActivity {
   private Integer userId;
 
   Button createButton;
+  Spinner raceSpinner;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,11 @@ public class CharCreateActivity extends AppCompatActivity {
     bind = ActivityCharCreateBinding.inflate(getLayoutInflater());
     setContentView(bind.getRoot());
     createButton = bind.createFinishButton;
+    raceSpinner = bind.raceDropdown;
+    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        this, R.array.racesArray, android.R.layout.simple_spinner_item);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    raceSpinner.setAdapter(adapter);
 
     createButton.setOnClickListener(new View.OnClickListener() {
       @Override

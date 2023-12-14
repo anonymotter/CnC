@@ -23,4 +23,13 @@
         android:text="@string/create"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="223dp" />
+
+    <Spinner
+        android:id="@+id/raceDropdown"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createNameEdit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
