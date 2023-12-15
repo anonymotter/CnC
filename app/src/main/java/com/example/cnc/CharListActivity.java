@@ -43,12 +43,17 @@ public class CharListActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     initControls();
     dao = Statics.getDao();
+    Statics.setCharListActivity(this);
     pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
     userId = pref.getInt(getString(R.string.userIdKey), -1);
     username = dao.getUserById(userId).get(0).getUsername();
-    int numChars = dao.getCharsByUserId(userId).size();
     charListLabel.setText(getString(R.string.charListLabel, username));
-    charListLabel.setText(String.valueOf(numChars));
+    initRecyclerView();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
     initRecyclerView();
   }
 
@@ -98,5 +103,9 @@ public class CharListActivity extends AppCompatActivity {
     } else {
       Toast.makeText(this, "No characters", Toast.LENGTH_SHORT).show();
     }
+  }
+
+  public void test() {
+    Toast.makeText(this, "chugga chugga", Toast.LENGTH_SHORT).show();
   }
 }

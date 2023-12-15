@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.example.cnc.enums.CharRace;
  */
 
 public class CharCreateActivity extends AppCompatActivity {
+  private static final int DEFAULT_ATTRIBUTE = 10;
 
   private ActivityCharCreateBinding bind;
   private CncDao dao;
@@ -32,14 +34,14 @@ public class CharCreateActivity extends AppCompatActivity {
   private int userId;
   private int raceId;
   private int classId;
-  private int str;
-  private int dex;
-  private int con;
-  private int wis;
-  private int intelligence;
-  private int cha;
+  private int str = DEFAULT_ATTRIBUTE;
+  private int dex = DEFAULT_ATTRIBUTE;
+  private int con = DEFAULT_ATTRIBUTE;
+  private int wis = DEFAULT_ATTRIBUTE;
+  private int intelligence = DEFAULT_ATTRIBUTE;
+  private int cha = DEFAULT_ATTRIBUTE;
 
-  Button createButton;
+  EditText nameEdit;
   Spinner raceSpinner;
   Spinner classSpinner;
   SeekBar strSeekbar;
@@ -54,6 +56,7 @@ public class CharCreateActivity extends AppCompatActivity {
   TextView wisNumber;
   TextView intNumber;
   TextView chaNumber;
+  Button createButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class CharCreateActivity extends AppCompatActivity {
   private void initControls() {
     bind = ActivityCharCreateBinding.inflate(getLayoutInflater());
     setContentView(bind.getRoot());
-    createButton = bind.createFinishButton;
+    nameEdit = bind.createNameEdit;
     raceSpinner = bind.raceSpinner;
     ArrayAdapter<CharSequence> raceAdapter = ArrayAdapter.createFromResource(
         this, R.array.racesArray, android.R.layout.simple_spinner_item);
@@ -91,6 +94,7 @@ public class CharCreateActivity extends AppCompatActivity {
     wisNumber = bind.wisNumber;
     intNumber = bind.intNumber;
     chaNumber = bind.chaNumber;
+    createButton = bind.createFinishButton;
 
     createButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -122,15 +126,30 @@ public class CharCreateActivity extends AppCompatActivity {
         raceId = 0;
       }
     });
+
+    strSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        str = progress;
+        strNumber.setText(String.valueOf(str));
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {}
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {}
+    });
+
+
   }
 
   private void create() {
     if (dao.getCharById(0).size() == 0) {
-      dao.insert(new PlayerChar(userId, "Surak",
+      dao.insert(new PlayerChar(userId, nameEdit.getText().toString(),
           CharRace.byId((int)raceSpinner.getSelectedItemId()),
-          CharClass.MATHEMATICIAN, 1,
-      10, 10, 11, 11, 11, 11, 11, 11));
-//      startActivity(Intents.charList(this));
+          CharClass.byId((int)classSpinner.getSelectedItemId()),
+          1, str, dex, con, wis, intelligence, cha));
+      startActivity(Intents.charList(this));
     }
   }
 }

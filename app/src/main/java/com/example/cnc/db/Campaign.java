@@ -3,33 +3,35 @@ package com.example.cnc.db;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.cnc.db.CncDatabase;
+
 /**
  * @author Kyle Stefun
  * @since 2023.12.14
  * Entity representing one campaign in the database.
  */
 
-@Entity(tableName = CncDatabase.USER_TABLE)
+@Entity(tableName = CncDatabase.CAMPAIGN_TABLE)
 public class Campaign {
 
   @PrimaryKey(autoGenerate = true)
-  private int userId;
+  private int ownerId;
   private String name;
   private String description;
   private boolean nameFilterActive;
 
-  public Campaign(String name, String description, boolean nameFilterActive, boolean noDwarves) {
+  public Campaign(String name, String description, boolean nameFilterActive) {
     this.name = name;
     this.description = description;
     this.nameFilterActive = nameFilterActive;
   }
 
-  public int getUserId() {
-    return userId;
+  public int getOwnerId() {
+    return ownerId;
   }
 
-  public void setUserId(int userId) {
-    this.userId = userId;
+  public void setOwnerId(int ownerId) {
+    this.ownerId = ownerId;
   }
 
   public String getName() {

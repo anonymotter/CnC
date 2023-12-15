@@ -3,7 +3,6 @@ package com.example.cnc.db;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.cnc.db.CncDatabase;
 import com.example.cnc.enums.CharClass;
 import com.example.cnc.enums.CharRace;
 
@@ -18,7 +17,7 @@ public class PlayerChar {
 
   @PrimaryKey(autoGenerate = true)
   private int charId;
-  private int userId;
+  private int ownerId;
   private String name;
   private CharRace charRace;
   private CharClass charClass;
@@ -34,21 +33,36 @@ public class PlayerChar {
 
 //  public PlayerChar() {};
 
-  public PlayerChar(int userId, String name, CharRace charRace, CharClass charClass, int level, int currentHp,
-                    int maxHp, int str, int dex, int con, int wis, int intelligence, int cha) {
-    this.userId = userId;
+  public PlayerChar(int ownerId, String name, CharRace charRace, CharClass charClass, int level,
+                    int str, int dex, int con, int wis, int intelligence, int cha) {
+    this.ownerId = ownerId;
     this.name = name;
     this.charRace = charRace;
     this.charClass = charClass;
     this.level = level;
-    this.currentHp = currentHp;
-    this.maxHp = maxHp;
     this.str = str;
     this.dex = dex;
     this.con = con;
     this.wis = wis;
     this.intelligence = intelligence;
     this.cha = cha;
+    maxHp = calculateMaxHealth();
+    currentHp = maxHp;
+  }
+
+  private int calculateMaxHealth() {
+    return con + level * con/4;
+  }
+
+  private void levelUp() {
+    level++;
+    int maxHpDifference = calculateMaxHealth() - maxHp;
+    maxHp += maxHpDifference;
+    currentHp += maxHpDifference;
+  }
+
+  public String describe() {
+    return "Level " + level + " " + charRace + " " + charClass;
   }
 
   public int getCharId() {
@@ -59,12 +73,12 @@ public class PlayerChar {
     this.charId = charId;
   }
 
-  public int getUserId() {
-    return userId;
+  public int getOwnerId() {
+    return ownerId;
   }
 
-  public void setUserId(int userId) {
-    this.userId = userId;
+  public void setOwnerId(int ownerId) {
+    this.ownerId = ownerId;
   }
 
   public String getName() {

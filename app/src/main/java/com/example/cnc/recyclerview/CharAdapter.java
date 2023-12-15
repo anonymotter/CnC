@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnc.CharListActivity;
 import com.example.cnc.Intents;
-import com.example.cnc.db.PlayerChar;
 import com.example.cnc.R;
+import com.example.cnc.Statics;
+import com.example.cnc.db.PlayerChar;
 
 import java.util.List;
 
@@ -35,10 +36,17 @@ public class CharAdapter extends RecyclerView.Adapter<CharAdapter.CharViewHolder
       view.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          System.out.println("adapter position = " + String.valueOf(getAdapterPosition()));
           view.getContext().startActivity(
               Intents.charSheet(view.getContext(), data.get(getAdapterPosition()).getCharId()));
-//          activity.selectChar(getAdapterPosition());
+//          Statics.getCharListActivity().test();
+        }
+      });
+
+      view.setOnLongClickListener(new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+          Statics.getDao().delete(data.get(getAdapterPosition()));
+          return true;
         }
       });
       line1 = view.findViewById(R.id.itemLine1);
@@ -60,7 +68,7 @@ public class CharAdapter extends RecyclerView.Adapter<CharAdapter.CharViewHolder
   @Override
   public void onBindViewHolder(@NonNull CharViewHolder holder, int position) {
     holder.line1.setText(data.get(position).getName());
-    holder.line2.setText(String.valueOf(data.get(position).getCharId()));
+    holder.line2.setText(data.get(position).describe());
   }
 
   @Override

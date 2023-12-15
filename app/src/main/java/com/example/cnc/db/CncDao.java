@@ -30,7 +30,7 @@ public interface CncDao {
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE charId = :charId")
   List<PlayerChar> getCharById(int charId);
 
-  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE userId = :userId")
+  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE ownerId = :userId")
   List<PlayerChar> getCharsByUserId(int userId);
 
 
@@ -51,10 +51,10 @@ public interface CncDao {
   @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE userId = :userId")
   List<User> getUserById(int userId);
 
-  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE name = :username")
+  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE username = :username")
   List<User> getUserByName(String username);
 
-  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE name = :username AND description = :password")
+  @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE username = :username AND password = :password")
   List<User> getUserByNameAndPassword(String username, String password);
 
   @Query("SELECT * FROM " + CncDatabase.USER_TABLE + " WHERE userId = :userId AND isDm = 1")

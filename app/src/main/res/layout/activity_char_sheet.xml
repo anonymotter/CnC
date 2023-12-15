@@ -10,7 +10,7 @@
         android:id="@+id/charNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,33 +43,36 @@
         android:id="@+id/hpLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="106dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:text="@string/hp"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/hpBar"
+        app:layout_constraintTop_toBottomOf="@+id/levelRaceClassLabel" />
 
     <TextView
-        android:id="@+id/hpLabel2"
+        android:id="@+id/hpNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/hpBar"
         tools:text="10/10" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/hpBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="234dp"
         android:layout_height="19dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/levelRaceClassLabel"
-        tools:layout_editor_absoluteX="88dp" />
+        android:max="10"
+        android:progress="5"
+        android:progressTint="@color/design_default_color_error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levelRaceClassLabel" />
 
     <Button
         android:id="@+id/takeDamageButton"
@@ -77,9 +80,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:text="@string/takeDamage"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hpLabel2" />
+        app:layout_constraintTop_toBottomOf="@+id/hpNumber" />
 
     <Button
         android:id="@+id/restButton"
@@ -87,19 +91,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/rest"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/takeDamageButton" />
 
     <Button
-        android:id="@+id/restButton2"
+        android:id="@+id/levelUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/levelUp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restButton" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/goBack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

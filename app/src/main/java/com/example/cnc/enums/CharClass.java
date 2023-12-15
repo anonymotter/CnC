@@ -27,6 +27,11 @@ public enum CharClass {
     return null;
   }
 
+  @Override
+  public String toString() {
+    return name;
+  }
+
   public int getId() {
     return id;
   }

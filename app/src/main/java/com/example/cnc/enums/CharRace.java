@@ -25,6 +25,11 @@ public enum CharRace {
     return null;
   }
 
+  @Override
+  public String toString() {
+    return name;
+  }
+
   public int getId() {
     return id;
   }

@@ -27,6 +27,8 @@
     <string name="chaColon">CHA:</string>
     <string name="raceColon">Race:</string>
     <string name="classColon">Class:</string>
+    <string name="back">Back</string>
+    <string name="goBack">Go back</string>
     <string-array name="racesArray">
         <item>Human</item>
         <item>Dwarf</item>

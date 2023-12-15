@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "5500f5af13345b3febbbc36cfc3681d4",
+    "identityHash": "bd7a9310790a87d47985ab47b621ab09",
     "entities": [
       {
         "tableName": "users_table",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "characters_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`charId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` INTEGER NOT NULL, `name` TEXT, `charRace` TEXT, `charClass` TEXT, `level` INTEGER NOT NULL, `currentHp` INTEGER NOT NULL, `maxHp` INTEGER NOT NULL, `str` INTEGER NOT NULL, `dex` INTEGER NOT NULL, `con` INTEGER NOT NULL, `wis` INTEGER NOT NULL, `intelligence` INTEGER NOT NULL, `cha` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`charId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ownerId` INTEGER NOT NULL, `name` TEXT, `charRace` TEXT, `charClass` TEXT, `level` INTEGER NOT NULL, `currentHp` INTEGER NOT NULL, `maxHp` INTEGER NOT NULL, `str` INTEGER NOT NULL, `dex` INTEGER NOT NULL, `con` INTEGER NOT NULL, `wis` INTEGER NOT NULL, `intelligence` INTEGER NOT NULL, `cha` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "charId",
@@ -53,8 +53,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "userId",
-            "columnName": "userId",
+            "fieldPath": "ownerId",
+            "columnName": "ownerId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -139,12 +139,50 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "campaigns_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `description` TEXT, `nameFilterActive` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "ownerId",
+            "columnName": "ownerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nameFilterActive",
+            "columnName": "nameFilterActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ownerId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5500f5af13345b3febbbc36cfc3681d4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd7a9310790a87d47985ab47b621ab09')"
     ]
   }
 }
