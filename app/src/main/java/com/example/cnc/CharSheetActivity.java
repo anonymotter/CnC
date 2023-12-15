@@ -55,6 +55,12 @@ public class CharSheetActivity extends AppCompatActivity {
     restButton = bind.restButton;
     levelUpButton = bind.levelUpButton;
     backButton = bind.backButton;
+    bind.strLabel.setText(getString(R.string.strDisplay, String.valueOf(character.getStr())));
+    bind.dexLabel.setText(getString(R.string.dexDisplay, String.valueOf(character.getDex())));
+    bind.conLabel.setText(getString(R.string.conDisplay, String.valueOf(character.getCon())));
+    bind.wisLabel.setText(getString(R.string.wisDisplay, String.valueOf(character.getWis())));
+    bind.intLabel.setText(getString(R.string.intDisplay, String.valueOf(character.getInt())));
+    bind.chaLabel.setText(getString(R.string.chaDisplay, String.valueOf(character.getCha())));
 
     takeDamageButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -80,9 +86,16 @@ public class CharSheetActivity extends AppCompatActivity {
   }
 
   private void changeHp(int newHp) {
+    if(newHp < 0) newHp = 0;
+    if(newHp > character.getMaxHp()) newHp = character.getMaxHp();
     character.setCurrentHp(newHp);
     hpBar.setProgress(character.getCurrentHp());
     hpNumber.setText(character.getCurrentHp() + "/" + character.getMaxHp());
+    if (character.getCurrentHp() > 0) {
+      restButton.setText(R.string.rest);
+    } else {
+      restButton.setText(R.string.resurrect);
+    }
   }
 
   private void changeHp(int newHp, int newHpMax) {

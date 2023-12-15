@@ -13,16 +13,16 @@
         android:theme="@style/Theme.CnC"
         tools:targetApi="31">
         <activity
+            android:name=".CampaignCharListActivity"
+            android:exported="false" />
+        <activity
             android:name=".CharCreateActivity"
             android:exported="false" />
         <activity
-            android:name=".CampaignActivity"
+            android:name=".CampaignListActivity"
             android:exported="false" />
         <activity
             android:name=".CharSheetActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CampaignListActivity"
             android:exported="false" />
         <activity
             android:name=".CharListActivity"

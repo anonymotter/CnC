@@ -161,11 +161,11 @@ public class PlayerChar {
     this.wis = wis;
   }
 
-  public int getIntelligence() {
+  public int getInt() {
     return intelligence;
   }
 
-  public void setIntelligence(int intelligence) {
+  public void setInt(int intelligence) {
     this.intelligence = intelligence;
   }
 

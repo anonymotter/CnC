@@ -18,12 +18,6 @@ public class Statics {
   private static CncDao dao;
   private static CharListActivity charListActivity;
 
-  public void deleteCharById(int charId) { // hey, ever heard of encapsulation?
-    dao.delete(dao.getCharById(charId).get(0));
-  }
-
-
-
   public static CncDao getDao() {
     return dao;
   }

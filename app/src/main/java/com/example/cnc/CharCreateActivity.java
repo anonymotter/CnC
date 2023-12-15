@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharCreateBinding;
@@ -140,10 +141,80 @@ public class CharCreateActivity extends AppCompatActivity {
       public void onStopTrackingTouch(SeekBar seekBar) {}
     });
 
+    dexSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        dex = progress;
+        dexNumber.setText(String.valueOf(dex));
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {}
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {}
+    });
+
+    conSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        con = progress;
+        conNumber.setText(String.valueOf(con));
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {}
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {}
+    });
+
+    wisSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        wis = progress;
+        wisNumber.setText(String.valueOf(wis));
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {}
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {}
+    });
+
+    intSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        intelligence = progress;
+        intNumber.setText(String.valueOf(intelligence));
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {}
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {}
+    });
+
+    chaSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        cha = progress;
+        chaNumber.setText(String.valueOf(cha));
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {}
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {}
+    });
+
 
   }
 
   private void create() {
+    if (dao.getCharByName(nameEdit.getText().toString()).size() > 0) {
+      Toast.makeText(this, "Character already exists with that name",
+          Toast.LENGTH_SHORT).show();
+      return;
+    }
     if (dao.getCharById(0).size() == 0) {
       dao.insert(new PlayerChar(userId, nameEdit.getText().toString(),
           CharRace.byId((int)raceSpinner.getSelectedItemId()),

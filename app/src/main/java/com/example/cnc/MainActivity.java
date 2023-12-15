@@ -21,7 +21,8 @@ import java.util.List;
 /**
  * @author Kyle Stefun
  * @since 2023.12.01
- * First activity that a user sees, prompting them to log in or create an account.
+ * First activity that a user sees, prompting them to log in or create an account. Ampersand image
+ * presumably property of Wizards of the Coast.
  */
 
 public class MainActivity extends AppCompatActivity {

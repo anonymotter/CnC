@@ -5,7 +5,7 @@
     <string name="loginVerb">Log in</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="createUser">Create User</string>
+    <string name="createUser">Create user</string>
     <string name="charListLabel">%1$s\'s characters</string>
     <string name="loggingIn">Logging in…</string>
     <string name="campaignListLabel">%1$s\'s campaigns</string>
@@ -29,6 +29,14 @@
     <string name="classColon">Class:</string>
     <string name="back">Back</string>
     <string name="goBack">Go back</string>
+    <string name="defaultAttribute">10</string>
+    <string name="resurrect">Resurrect</string>
+    <string name="strDisplay">STR: %1$s</string>
+    <string name="dexDisplay">STR: %1$s</string>
+    <string name="conDisplay">STR: %1$s</string>
+    <string name="wisDisplay">STR: %1$s</string>
+    <string name="intDisplay">STR: %1$s</string>
+    <string name="chaDisplay">STR: %1$s</string>
     <string-array name="racesArray">
         <item>Human</item>
         <item>Dwarf</item>

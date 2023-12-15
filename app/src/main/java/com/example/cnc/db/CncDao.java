@@ -17,6 +17,19 @@ import java.util.List;
 @Dao
 public interface CncDao {
 
+  // campaigns table
+  @Insert
+  void insert(Campaign... campaigns);
+
+  @Update
+  void update(Campaign... campaigns);
+
+  @Delete
+  void delete(Campaign campaigns);
+
+  @Query("SELECT * FROM " + CncDatabase.CAMPAIGN_TABLE + " WHERE ownerId = :userId")
+  List<Campaign> getCampaignsByUserId(int userId);
+
   // characters table
   @Insert
   void insert(PlayerChar... playerChars);
@@ -29,6 +42,9 @@ public interface CncDao {
 
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE charId = :charId")
   List<PlayerChar> getCharById(int charId);
+
+  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE name = :name")
+  List<PlayerChar> getCharByName(String name);
 
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE ownerId = :userId")
   List<PlayerChar> getCharsByUserId(int userId);

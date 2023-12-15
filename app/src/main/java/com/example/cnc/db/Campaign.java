@@ -15,6 +15,7 @@ import com.example.cnc.db.CncDatabase;
 public class Campaign {
 
   @PrimaryKey(autoGenerate = true)
+  private int campaignId;
   private int ownerId;
   private String name;
   private String description;
@@ -24,6 +25,14 @@ public class Campaign {
     this.name = name;
     this.description = description;
     this.nameFilterActive = nameFilterActive;
+  }
+
+  public int getCampaignId() {
+    return campaignId;
+  }
+
+  public void setCampaignId(int campaignId) {
+    this.campaignId = campaignId;
   }
 
   public int getOwnerId() {

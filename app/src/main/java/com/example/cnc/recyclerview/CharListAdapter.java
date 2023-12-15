@@ -19,16 +19,16 @@ import java.util.List;
 /**
  * @author Kyle Stefun
  * @since 2023.12.13
- * A class to adapt a PlayerChar RecyclerView. Excessive hackery within.
+ * A class to adapt a PlayerChar RecyclerView for a list of characters, where the on-click effect
+ * will launch a character sheet activity.
  */
 
-public class CharAdapter extends RecyclerView.Adapter<CharAdapter.CharViewHolder> {
+public class CharListAdapter extends RecyclerView.Adapter<CharListAdapter.CharViewHolder> {
   private List<PlayerChar> data;
 
   public static class CharViewHolder extends RecyclerView.ViewHolder {
     TextView line1;
     TextView line2;
-    CharListActivity activity;
 
     public CharViewHolder(@NonNull View view, List<PlayerChar> data) {
       super(view);
@@ -38,7 +38,6 @@ public class CharAdapter extends RecyclerView.Adapter<CharAdapter.CharViewHolder
         public void onClick(View v) {
           view.getContext().startActivity(
               Intents.charSheet(view.getContext(), data.get(getAdapterPosition()).getCharId()));
-//          Statics.getCharListActivity().test();
         }
       });
 
@@ -54,7 +53,7 @@ public class CharAdapter extends RecyclerView.Adapter<CharAdapter.CharViewHolder
     }
   }
 
-  public CharAdapter(List<PlayerChar> data) {
+  public CharListAdapter(List<PlayerChar> data) {
     this.data = data;
   }
 

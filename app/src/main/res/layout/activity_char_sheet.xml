@@ -33,11 +33,73 @@
         android:id="@+id/strLabel"
         android:layout_width="46dp"
         android:layout_height="52dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="166dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hpNumber"
         tools:text="STR 11" />
+
+    <TextView
+        android:id="@+id/dexLabel"
+        android:layout_width="46dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/strLabel"
+        app:layout_constraintTop_toBottomOf="@+id/hpNumber"
+        tools:text="DEX 11" />
+
+    <TextView
+        android:id="@+id/conLabel"
+        android:layout_width="46dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/dexLabel"
+        app:layout_constraintTop_toBottomOf="@+id/hpNumber"
+        tools:text="CON 11" />
+
+    <TextView
+        android:id="@+id/wisLabel"
+        android:layout_width="46dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/intLabel"
+        app:layout_constraintTop_toBottomOf="@+id/hpNumber"
+        tools:text="WIS 11" />
+
+    <TextView
+        android:id="@+id/intLabel"
+        android:layout_width="46dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/chaLabel"
+        app:layout_constraintTop_toBottomOf="@+id/hpNumber"
+        tools:text="INT 11" />
+
+    <TextView
+        android:id="@+id/chaLabel"
+        android:layout_width="46dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="36dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hpNumber"
+        tools:text="CHA 11" />
 
     <TextView
         android:id="@+id/hpLabel"
@@ -78,12 +140,12 @@
         android:id="@+id/takeDamageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="24dp"
         android:text="@string/takeDamage"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hpNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/wisLabel" />
 
     <Button
         android:id="@+id/restButton"
