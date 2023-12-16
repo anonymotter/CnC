@@ -1,6 +1,7 @@
 <resources>
-    <string name="preferenceKey">preferenceKey</string>
-    <string name="userIdKey">userIdKey</string>
+    <string name="PreferenceKey">PreferenceKey</string>
+    <string name="UserIdKey">UserIdKey</string>
+    <string name="CampaignIdKey">CampaignIdKey</string>
     <string name="app_name">CnC</string>
     <string name="loginVerb">Log in</string>
     <string name="username">Username</string>
@@ -31,12 +32,16 @@
     <string name="goBack">Go back</string>
     <string name="defaultAttribute">10</string>
     <string name="resurrect">Resurrect</string>
-    <string name="strDisplay">STR: %1$s</string>
-    <string name="dexDisplay">STR: %1$s</string>
-    <string name="conDisplay">STR: %1$s</string>
-    <string name="wisDisplay">STR: %1$s</string>
-    <string name="intDisplay">STR: %1$s</string>
-    <string name="chaDisplay">STR: %1$s</string>
+    <string name="strDisplay">STR %1$s</string>
+    <string name="dexDisplay">DEX %1$s</string>
+    <string name="conDisplay">CON %1$s</string>
+    <string name="wisDisplay">WIS %1$s</string>
+    <string name="intDisplay">INT %1$s</string>
+    <string name="chaDisplay">CHA %1$s</string>
+    <string name="create_campaign">Create campaign</string>
+    <string name="description">Description</string>
+    <string name="nameFilter">Name filter</string>
+    <string name="campaignColon">Campaign:</string>
     <string-array name="racesArray">
         <item>Human</item>
         <item>Dwarf</item>

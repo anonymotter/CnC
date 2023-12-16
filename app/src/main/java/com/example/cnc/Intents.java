@@ -19,11 +19,8 @@ public class Intents {
     return new Intent(context, MainActivity.class);
   }
 
-  public static Intent charList(Context context) {
-    Intent intent = new Intent(context, CharListActivity.class);
-//    intent.putExtra(USER_ID_KEY, userId);
-//    intent.putExtra(USERNAME_KEY, username);
-    return intent;
+  public static Intent campaignCreate(Context context) {
+    return new Intent(context, CampaignCreateActivity.class);
   }
 
   public static Intent campaignList(Context context, int userId, String username) {
@@ -35,6 +32,13 @@ public class Intents {
 
   public static Intent charCreate(Context context) {
     return new Intent(context, CharCreateActivity.class);
+  }
+
+  public static Intent charList(Context context) {
+    Intent intent = new Intent(context, CharListActivity.class);
+//    intent.putExtra(USER_ID_KEY, userId);
+//    intent.putExtra(USERNAME_KEY, username);
+    return intent;
   }
 
   public static Intent charSheet(Context context, int charId) {

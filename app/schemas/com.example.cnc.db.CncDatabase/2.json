@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "bd7a9310790a87d47985ab47b621ab09",
+    "identityHash": "b4bb3d5b1eb53349a27b6f9641526857",
     "entities": [
       {
         "tableName": "users_table",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "characters_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`charId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ownerId` INTEGER NOT NULL, `name` TEXT, `charRace` TEXT, `charClass` TEXT, `level` INTEGER NOT NULL, `currentHp` INTEGER NOT NULL, `maxHp` INTEGER NOT NULL, `str` INTEGER NOT NULL, `dex` INTEGER NOT NULL, `con` INTEGER NOT NULL, `wis` INTEGER NOT NULL, `intelligence` INTEGER NOT NULL, `cha` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`charId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ownerId` INTEGER NOT NULL, `campaignId` INTEGER NOT NULL, `name` TEXT, `charRace` TEXT, `charClass` TEXT, `level` INTEGER NOT NULL, `currentHp` INTEGER NOT NULL, `maxHp` INTEGER NOT NULL, `str` INTEGER NOT NULL, `dex` INTEGER NOT NULL, `con` INTEGER NOT NULL, `wis` INTEGER NOT NULL, `intelligence` INTEGER NOT NULL, `cha` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "charId",
@@ -55,6 +55,12 @@
           {
             "fieldPath": "ownerId",
             "columnName": "ownerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "campaignId",
+            "columnName": "campaignId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -142,8 +148,14 @@
       },
       {
         "tableName": "campaigns_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `description` TEXT, `nameFilterActive` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`campaignId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ownerId` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `nameFilterActive` INTEGER NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "campaignId",
+            "columnName": "campaignId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "ownerId",
             "columnName": "ownerId",
@@ -171,7 +183,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "ownerId"
+            "campaignId"
           ],
           "autoGenerate": true
         },
@@ -182,7 +194,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd7a9310790a87d47985ab47b621ab09')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b4bb3d5b1eb53349a27b6f9641526857')"
     ]
   }
 }

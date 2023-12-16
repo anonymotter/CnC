@@ -22,7 +22,8 @@ import java.util.List;
  * will add a character to a specified campaign.
  */
 
-public class CharAddAdapter extends RecyclerView.Adapter<CharAddAdapter.CharViewHolder> {
+public class CampaignCharListAdapter
+    extends RecyclerView.Adapter<CampaignCharListAdapter.CharViewHolder> {
   private List<PlayerChar> data;
   private int campaignId; // this is the campaign to which characters will be added
 
@@ -54,7 +55,7 @@ public class CharAddAdapter extends RecyclerView.Adapter<CharAddAdapter.CharView
     }
   }
 
-  public CharAddAdapter(List<PlayerChar> data, int campaignId) {
+  public CampaignCharListAdapter(List<PlayerChar> data, int campaignId) {
     this.data = data;
     this.campaignId = campaignId;
   }

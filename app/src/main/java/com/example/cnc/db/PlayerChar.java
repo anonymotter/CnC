@@ -18,10 +18,11 @@ public class PlayerChar {
   @PrimaryKey(autoGenerate = true)
   private int charId;
   private int ownerId;
+  private int campaignId;
   private String name;
   private CharRace charRace;
   private CharClass charClass;
-  private int level;
+  private int level = 1;
   private int currentHp;
   private int maxHp;
   private int str;
@@ -33,13 +34,14 @@ public class PlayerChar {
 
 //  public PlayerChar() {};
 
-  public PlayerChar(int ownerId, String name, CharRace charRace, CharClass charClass, int level,
+  public PlayerChar(int ownerId, int campaignId,
+                    String name, CharRace charRace, CharClass charClass,
                     int str, int dex, int con, int wis, int intelligence, int cha) {
     this.ownerId = ownerId;
+    this.campaignId = campaignId;
     this.name = name;
     this.charRace = charRace;
     this.charClass = charClass;
-    this.level = level;
     this.str = str;
     this.dex = dex;
     this.con = con;
@@ -54,7 +56,7 @@ public class PlayerChar {
     return con + level * con/4;
   }
 
-  private void levelUp() {
+  public void levelUp() {
     level++;
     int maxHpDifference = calculateMaxHealth() - maxHp;
     maxHp += maxHpDifference;
@@ -79,6 +81,14 @@ public class PlayerChar {
 
   public void setOwnerId(int ownerId) {
     this.ownerId = ownerId;
+  }
+
+  public int getCampaignId() {
+    return campaignId;
+  }
+
+  public void setCampaignId(int campaignId) {
+    this.campaignId = campaignId;
   }
 
   public String getName() {
@@ -161,11 +171,11 @@ public class PlayerChar {
     this.wis = wis;
   }
 
-  public int getInt() {
+  public int getIntelligence() {
     return intelligence;
   }
 
-  public void setInt(int intelligence) {
+  public void setIntelligence(int intelligence) {
     this.intelligence = intelligence;
   }
 

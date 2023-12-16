@@ -15,11 +15,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cnc.db.Campaign;
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharCreateBinding;
 import com.example.cnc.db.PlayerChar;
 import com.example.cnc.enums.CharClass;
 import com.example.cnc.enums.CharRace;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Kyle Stefun
@@ -33,8 +38,7 @@ public class CharCreateActivity extends AppCompatActivity {
   private CncDao dao;
   private SharedPreferences pref;
   private int userId;
-  private int raceId;
-  private int classId;
+  private List<Campaign> campaignList;
   private int str = DEFAULT_ATTRIBUTE;
   private int dex = DEFAULT_ATTRIBUTE;
   private int con = DEFAULT_ATTRIBUTE;
@@ -45,6 +49,7 @@ public class CharCreateActivity extends AppCompatActivity {
   EditText nameEdit;
   Spinner raceSpinner;
   Spinner classSpinner;
+  Spinner campaignSpinner;
   SeekBar strSeekbar;
   SeekBar dexSeekbar;
   SeekBar conSeekbar;
@@ -62,11 +67,12 @@ public class CharCreateActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    dao = Statics.getDao();
     initControls();
 
-    dao = Statics.getDao();
-    pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
-    userId = pref.getInt(getString(R.string.userIdKey), -1);
+
+    pref = getSharedPreferences(getString(R.string.PreferenceKey), Context.MODE_PRIVATE);
+    userId = pref.getInt(getString(R.string.UserIdKey), -1);
   }
 
   private void initControls() {
@@ -81,8 +87,13 @@ public class CharCreateActivity extends AppCompatActivity {
     classSpinner = bind.classSpinner;
     ArrayAdapter<CharSequence> classAdapter = ArrayAdapter.createFromResource(
         this, R.array.classesArray, android.R.layout.simple_spinner_item);
-    classAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     classSpinner.setAdapter(classAdapter);
+    campaignSpinner = bind.campaignSpinner;
+    campaignList = dao.getAllCampaigns();
+    ArrayAdapter<Campaign> campaignAdapter =
+        new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, campaignList);
+    campaignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    campaignSpinner.setAdapter(campaignAdapter);
     strSeekbar = bind.strSeekBar;
     dexSeekbar = bind.dexSeekBar;
     conSeekbar = bind.conSeekBar;
@@ -101,30 +112,6 @@ public class CharCreateActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         create();
-      }
-    });
-
-    raceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        raceId = position;
-      }
-
-      @Override
-      public void onNothingSelected(AdapterView<?> parent) {
-        raceId = 0;
-      }
-    });
-
-    classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        raceId = position;
-      }
-
-      @Override
-      public void onNothingSelected(AdapterView<?> parent) {
-        raceId = 0;
       }
     });
 
@@ -210,16 +197,23 @@ public class CharCreateActivity extends AppCompatActivity {
   }
 
   private void create() {
+    if (nameEdit.getText().toString().length() == 0) {
+      Toast.makeText(this, "Enter a name",
+          Toast.LENGTH_SHORT).show();
+      return;
+    }
     if (dao.getCharByName(nameEdit.getText().toString()).size() > 0) {
       Toast.makeText(this, "Character already exists with that name",
           Toast.LENGTH_SHORT).show();
       return;
     }
     if (dao.getCharById(0).size() == 0) {
-      dao.insert(new PlayerChar(userId, nameEdit.getText().toString(),
-          CharRace.byId((int)raceSpinner.getSelectedItemId()),
-          CharClass.byId((int)classSpinner.getSelectedItemId()),
-          1, str, dex, con, wis, intelligence, cha));
+      dao.insert(new PlayerChar(userId,
+          campaignList.get(campaignSpinner.getSelectedItemPosition()).getCampaignId(),
+          nameEdit.getText().toString(),
+          CharRace.byId(raceSpinner.getSelectedItemPosition()),
+          CharClass.byId(classSpinner.getSelectedItemPosition()),
+          str, dex, con, wis, intelligence, cha));
       startActivity(Intents.charList(this));
     }
   }

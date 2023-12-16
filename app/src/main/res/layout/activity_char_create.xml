@@ -32,6 +32,7 @@
         android:id="@+id/raceSpinner"
         android:layout_width="240dp"
         android:layout_height="48dp"
+        android:layout_marginStart="96dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,10 +53,21 @@
         android:id="@+id/classSpinner"
         android:layout_width="240dp"
         android:layout_height="48dp"
+        android:layout_marginStart="96dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/raceSpinner" />
+
+    <Spinner
+        android:id="@+id/campaignSpinner"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classSpinner" />
 
     <SeekBar
         android:id="@+id/strSeekBar"
@@ -66,7 +78,7 @@
         android:progress="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/campaignSpinner" />
 
     <TextView
         android:id="@+id/textView6"
@@ -77,7 +89,7 @@
         android:text="@string/strColon"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/strSeekBar"
-        app:layout_constraintTop_toBottomOf="@+id/classSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/campaignSpinner" />
 
     <TextView
         android:id="@+id/strNumber"
@@ -87,7 +99,7 @@
         android:layout_marginTop="12dp"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/strSeekBar"
-        app:layout_constraintTop_toBottomOf="@+id/classSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/campaignSpinner"
         android:text="@string/defaultAttribute" />
 
     <SeekBar
@@ -276,4 +288,15 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/classSpinner"
         app:layout_constraintTop_toBottomOf="@+id/raceSpinner" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/campaignColon"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/campaignSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/classSpinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>

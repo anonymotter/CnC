@@ -27,6 +27,15 @@ public interface CncDao {
   @Delete
   void delete(Campaign campaigns);
 
+  @Query("SELECT * FROM " + CncDatabase.CAMPAIGN_TABLE)
+  List<Campaign> getAllCampaigns();
+
+  @Query("SELECT * FROM " + CncDatabase.CAMPAIGN_TABLE + " WHERE campaignId = :campaignId")
+  List<Campaign> getCampaignById(int campaignId);
+
+  @Query("SELECT * FROM " + CncDatabase.CAMPAIGN_TABLE + " WHERE name = :name")
+  List<Campaign> getCampaignByName(String name);
+
   @Query("SELECT * FROM " + CncDatabase.CAMPAIGN_TABLE + " WHERE ownerId = :userId")
   List<Campaign> getCampaignsByUserId(int userId);
 
@@ -39,6 +48,9 @@ public interface CncDao {
 
   @Delete
   void delete(PlayerChar playerChars);
+
+  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE campaignId = :campaignId")
+  List<PlayerChar> getCharsByCampaignId(int campaignId);
 
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE charId = :charId")
   List<PlayerChar> getCharById(int charId);

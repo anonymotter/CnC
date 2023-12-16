@@ -36,9 +36,7 @@ public class CharSheetActivity extends AppCompatActivity {
     if(charId == -1) return;
     character = dao.getCharById(charId).get(0);
     initControls();
-
-
-
+    changeHp(character.getCurrentHp(), character.getMaxHp());
   }
 
   private void initControls() {
@@ -50,7 +48,6 @@ public class CharSheetActivity extends AppCompatActivity {
     levelRaceClassLabel.setText(character.describe());
     hpNumber = bind.hpNumber;
     hpBar = bind.hpBar;
-    changeHp(character.getCurrentHp(), character.getMaxHp());
     takeDamageButton = bind.takeDamageButton;
     restButton = bind.restButton;
     levelUpButton = bind.levelUpButton;
@@ -59,7 +56,7 @@ public class CharSheetActivity extends AppCompatActivity {
     bind.dexLabel.setText(getString(R.string.dexDisplay, String.valueOf(character.getDex())));
     bind.conLabel.setText(getString(R.string.conDisplay, String.valueOf(character.getCon())));
     bind.wisLabel.setText(getString(R.string.wisDisplay, String.valueOf(character.getWis())));
-    bind.intLabel.setText(getString(R.string.intDisplay, String.valueOf(character.getInt())));
+    bind.intLabel.setText(getString(R.string.intDisplay, String.valueOf(character.getIntelligence())));
     bind.chaLabel.setText(getString(R.string.chaDisplay, String.valueOf(character.getCha())));
 
     takeDamageButton.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +70,14 @@ public class CharSheetActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         changeHp(character.getMaxHp());
+        restButton.setText(R.string.rest);
+      }
+    });
+
+    levelUpButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        levelUp();
       }
     });
 
@@ -85,22 +90,29 @@ public class CharSheetActivity extends AppCompatActivity {
 
   }
 
-  private void changeHp(int newHp) {
-    if(newHp < 0) newHp = 0;
-    if(newHp > character.getMaxHp()) newHp = character.getMaxHp();
+  private void changeHp(int hp) {
+    int newHp = hp < 0 ? 0 : hp;
     character.setCurrentHp(newHp);
     hpBar.setProgress(character.getCurrentHp());
     hpNumber.setText(character.getCurrentHp() + "/" + character.getMaxHp());
     if (character.getCurrentHp() > 0) {
-      restButton.setText(R.string.rest);
+      restButton.setText(R.string.rest); // apparently this causes a crash. ???
     } else {
       restButton.setText(R.string.resurrect);
     }
+    dao.update(character);
   }
 
   private void changeHp(int newHp, int newHpMax) {
     character.setMaxHp(newHpMax);
     hpBar.setMax(newHpMax);
     changeHp(newHp);
+  }
+
+  private void levelUp() {
+    if(character.getLevel() >= 20) return;
+    character.levelUp();
+    changeHp(character.getCurrentHp(), character.getMaxHp());
+    levelRaceClassLabel.setText(character.describe());
   }
 }

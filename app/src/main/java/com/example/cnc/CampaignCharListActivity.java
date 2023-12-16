@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.cnc.databinding.ActivityCharListBinding;
 import com.example.cnc.db.CncDao;
 import com.example.cnc.db.PlayerChar;
+import com.example.cnc.recyclerview.CampaignCharListAdapter;
 import com.example.cnc.recyclerview.CharListAdapter;
 
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.List;
 public class CampaignCharListActivity extends AppCompatActivity {
   private ActivityCharListBinding bind;
   private CncDao dao;
-  private Integer userId;
+  private Integer campaignId;
 
   private SharedPreferences pref;
 
@@ -41,9 +42,10 @@ public class CampaignCharListActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     initControls();
     dao = Statics.getDao();
-    pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
-    userId = pref.getInt(getString(R.string.userIdKey), -1);
-    charListLabel.setText(getString(R.string.charListLabel, dao.getUserById(userId).get(0).getUsername()));
+    pref = getSharedPreferences(getString(R.string.PreferenceKey), Context.MODE_PRIVATE);
+    campaignId = getIntent().getIntExtra(getString(R.string.CampaignIdKey), -1);
+    charListLabel.setText(getString(R.string.charListLabel,
+        dao.getCampaignById(campaignId).get(0).getName()));
     initRecyclerView();
   }
 
@@ -69,9 +71,9 @@ public class CampaignCharListActivity extends AppCompatActivity {
   }
 
   private void initRecyclerView() {
-    List<PlayerChar> query = dao.getCharsByUserId(userId);
+    List<PlayerChar> query = dao.getCharsByCampaignId(campaignId);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(new CharListAdapter(query));
+    recyclerView.setAdapter(new CampaignCharListAdapter(query, campaignId));
   }
 
   public void selectChar(int index) {

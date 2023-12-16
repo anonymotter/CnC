@@ -8,10 +8,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnc.databinding.ActivityCampaignListBinding;
+import com.example.cnc.db.Campaign;
 import com.example.cnc.db.CncDao;
+import com.example.cnc.db.PlayerChar;
+import com.example.cnc.recyclerview.CampaignListAdapter;
+import com.example.cnc.recyclerview.CharListAdapter;
+
+import java.util.List;
 
 /**
  * @author Kyle Stefun
@@ -36,10 +43,11 @@ public class CampaignListActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     initControls();
     dao = Statics.getDao();
-    pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
-    userId = pref.getInt(getString(R.string.userIdKey), -1);
+    pref = getSharedPreferences(getString(R.string.PreferenceKey), Context.MODE_PRIVATE);
+    userId = pref.getInt(getString(R.string.UserIdKey), -1);
     campaignListLabel.setText(
         getString(R.string.campaignListLabel, dao.getUserById(userId).get(0).getUsername()));
+    initRecyclerView();
 //    SharedPreferences prefs = getSharedPreferences("prefkey", Context.MODE_PRIVATE);
 //    prefs.getInt("key", -1);
   }
@@ -67,14 +75,20 @@ public class CampaignListActivity extends AppCompatActivity {
     });
   }
 
+  private void initRecyclerView() {
+    List<Campaign> query = dao.getCampaignsByUserId(userId);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(new CampaignListAdapter(query));
+  }
+
   private void createCampaign() {
     //todo: campaign creation
-    startActivity(Intents.charCreate(this));
+    startActivity(Intents.campaignCreate(this));
   }
 
   private void logout() {
     SharedPreferences.Editor prefEdit = pref.edit();
-    prefEdit.putInt(getString(R.string.userIdKey), -1);
+    prefEdit.putInt(getString(R.string.UserIdKey), -1);
     prefEdit.apply();
     startActivity(Intents.login(this));
   }

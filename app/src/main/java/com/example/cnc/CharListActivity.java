@@ -44,8 +44,8 @@ public class CharListActivity extends AppCompatActivity {
     initControls();
     dao = Statics.getDao();
     Statics.setCharListActivity(this);
-    pref = getSharedPreferences(getString(R.string.preferenceKey), Context.MODE_PRIVATE);
-    userId = pref.getInt(getString(R.string.userIdKey), -1);
+    pref = getSharedPreferences(getString(R.string.PreferenceKey), Context.MODE_PRIVATE);
+    userId = pref.getInt(getString(R.string.UserIdKey), -1);
     charListLabel.setText(getString(R.string.charListLabel, dao.getUserById(userId).get(0).getUsername()));
     initRecyclerView();
   }
@@ -97,7 +97,7 @@ public class CharListActivity extends AppCompatActivity {
 
   private void logout() {
     SharedPreferences.Editor prefEdit = pref.edit();
-    prefEdit.putInt(getString(R.string.userIdKey), -1);
+    prefEdit.putInt(getString(R.string.UserIdKey), -1);
     prefEdit.apply();
     startActivity(Intents.login(this));
   }

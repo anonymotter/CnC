@@ -21,10 +21,16 @@ public class Campaign {
   private String description;
   private boolean nameFilterActive;
 
-  public Campaign(String name, String description, boolean nameFilterActive) {
+  public Campaign(int ownerId, String name, String description, boolean nameFilterActive) {
+    this.ownerId = ownerId;
     this.name = name;
     this.description = description;
     this.nameFilterActive = nameFilterActive;
+  }
+
+  @Override
+  public String toString() {
+    return name;
   }
 
   public int getCampaignId() {

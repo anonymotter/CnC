@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CnC"
         tools:targetApi="31">
         <activity
+            android:name=".CampaignCreateActivity"
+            android:exported="false" />
+        <activity
             android:name=".CampaignCharListActivity"
             android:exported="false" />
         <activity

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     initControls();
     dao = Statics.initDatabase(this);
-    pref = getSharedPreferences(getString(R.string.preferenceKey),
+    pref = getSharedPreferences(getString(R.string.PreferenceKey),
         Context.MODE_PRIVATE);
 //    detectUser();
     initUsers();
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void detectUser() {
-    int userId = pref.getInt(getString(R.string.userIdKey), -1);
+    int userId = pref.getInt(getString(R.string.UserIdKey), -1);
     if (userId >= 0) {
       List<User> query = dao.getUserById(userId);
       if (query.size() > 0) {
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     if (query.size() == 1) {
       loginButton.setText(R.string.loggingIn);
       SharedPreferences.Editor prefEdit = pref.edit();
-      prefEdit.putInt(getString(R.string.userIdKey), query.get(0).getUserId());
+      prefEdit.putInt(getString(R.string.UserIdKey), query.get(0).getUserId());
       prefEdit.apply();
       loginSplit(query.get(0).getUserId(), query.get(0).getUsername());
     } else {
