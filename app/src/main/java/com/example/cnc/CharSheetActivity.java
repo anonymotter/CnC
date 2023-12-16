@@ -45,7 +45,7 @@ public class CharSheetActivity extends AppCompatActivity {
     charNameLabel = bind.charNameLabel;
     charNameLabel.setText(character.getName());
     levelRaceClassLabel = bind.levelRaceClassLabel;
-    levelRaceClassLabel.setText(character.describe());
+    levelRaceClassLabel.setText(character.describeWithCampaign());
     hpNumber = bind.hpNumber;
     hpBar = bind.hpBar;
     takeDamageButton = bind.takeDamageButton;
@@ -113,6 +113,6 @@ public class CharSheetActivity extends AppCompatActivity {
     if(character.getLevel() >= 20) return;
     character.levelUp();
     changeHp(character.getCurrentHp(), character.getMaxHp());
-    levelRaceClassLabel.setText(character.describe());
+    levelRaceClassLabel.setText(character.describeWithCampaign());
   }
 }

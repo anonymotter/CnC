@@ -66,7 +66,7 @@ public class CharListAdapter extends RecyclerView.Adapter<CharListAdapter.CharVi
   @Override
   public void onBindViewHolder(@NonNull CharViewHolder holder, int position) {
     holder.line1.setText(data.get(position).getName());
-    holder.line2.setText(data.get(position).describe());
+    holder.line2.setText(data.get(position).describeWithCampaign());
   }
 
   @Override

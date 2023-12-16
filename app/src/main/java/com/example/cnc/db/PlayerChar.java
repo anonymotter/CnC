@@ -3,7 +3,6 @@ package com.example.cnc.db;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.cnc.R;
 import com.example.cnc.Statics;
 import com.example.cnc.enums.CharClass;
 import com.example.cnc.enums.CharRace;
@@ -83,9 +82,12 @@ public class PlayerChar {
     return "";
   }
 
-  public String describe() {
+  public String describeWithCampaign() {
     return "Level " + level + " " + charRace + " " + charClass + " - " + tryGetCampaignName();
+  }
 
+  public String describeWithOwner() {
+    return "Level " + level + " " + charRace + " " + charClass + " - Owned by " + tryGetOwnerName();
   }
 
   public String tryGetCampaignName() {
@@ -96,6 +98,16 @@ public class PlayerChar {
       return String.valueOf(campaignId);
     }
     return campaignName;
+  }
+
+  public String tryGetOwnerName() {
+    String ownerName;
+    try {
+      ownerName = Statics.getDao().getUserById(ownerId).get(0).getUsername();
+    } catch (Exception e) {
+      return String.valueOf(ownerId);
+    }
+    return ownerName;
   }
 
   public int getCharId() {
