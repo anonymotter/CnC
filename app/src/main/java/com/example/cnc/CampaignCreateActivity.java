@@ -63,14 +63,14 @@ public class CampaignCreateActivity extends AppCompatActivity {
       return;
     }
     if (dao.getCampaignByName(nameEdit.getText().toString()).size() > 0) {
-      Toast.makeText(this, "Character already exists with that name",
+      Toast.makeText(this, "Campaign already exists with that name",
           Toast.LENGTH_SHORT).show();
       return;
     }
     if (dao.getCampaignById(0).size() == 0) {
       dao.insert(new Campaign(userId, nameEdit.getText().toString(),
-          descEdit.getText().toString(), bind.filterCheckbox.isActivated()));
-      startActivity(Intents.charList(this));
+          descEdit.getText().toString(), bind.filterCheckbox.isChecked()));
+      startActivity(Intents.campaignList(this));
     }
   }
 }

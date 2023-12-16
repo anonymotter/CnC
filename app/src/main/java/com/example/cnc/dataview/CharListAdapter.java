@@ -1,4 +1,4 @@
-package com.example.cnc.recyclerview;
+package com.example.cnc.dataview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cnc.CampaignListActivity;
 import com.example.cnc.Intents;
 import com.example.cnc.R;
 import com.example.cnc.Statics;
-import com.example.cnc.db.Campaign;
 import com.example.cnc.db.PlayerChar;
 
 import java.util.List;
@@ -20,25 +18,25 @@ import java.util.List;
 /**
  * @author Kyle Stefun
  * @since 2023.12.13
- * A class to adapt a Campaign RecyclerView for a list of campaigns.
+ * A class to adapt a PlayerChar RecyclerView for a list of characters, where the on-click effect
+ * will launch a character sheet activity.
  */
 
-public class CampaignListAdapter
-    extends RecyclerView.Adapter<CampaignListAdapter.CampaignViewHolder> {
-  private List<Campaign> data;
+public class CharListAdapter extends RecyclerView.Adapter<CharListAdapter.CharViewHolder> {
+  private List<PlayerChar> data;
 
-  public static class CampaignViewHolder extends RecyclerView.ViewHolder {
+  public static class CharViewHolder extends RecyclerView.ViewHolder {
     TextView line1;
     TextView line2;
 
-    public CampaignViewHolder(@NonNull View view, List<Campaign> data) {
+    public CharViewHolder(@NonNull View view, List<PlayerChar> data) {
       super(view);
 //      this.activity = (CharListActivity)parent.getParent();
       view.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           view.getContext().startActivity(
-              Intents.charSheet(view.getContext(), data.get(getAdapterPosition()).getCampaignId()));
+              Intents.charSheet(view.getContext(), data.get(getAdapterPosition()).getCharId()));
         }
       });
 
@@ -54,21 +52,21 @@ public class CampaignListAdapter
     }
   }
 
-  public CampaignListAdapter(List<Campaign> data) {
+  public CharListAdapter(List<PlayerChar> data) {
     this.data = data;
   }
 
   @NonNull
   @Override
-  public CampaignViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public CharViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-    return new CampaignViewHolder(view, data);
+    return new CharViewHolder(view, data);
   }
 
   @Override
-  public void onBindViewHolder(@NonNull CampaignViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull CharViewHolder holder, int position) {
     holder.line1.setText(data.get(position).getName());
-    holder.line2.setText(data.get(position).getDescription());
+    holder.line2.setText(data.get(position).describe());
   }
 
   @Override

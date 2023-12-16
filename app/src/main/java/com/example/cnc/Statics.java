@@ -2,10 +2,17 @@ package com.example.cnc;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
+import com.example.cnc.db.Campaign;
 import com.example.cnc.db.CncDao;
 import com.example.cnc.db.CncDatabase;
+import com.example.cnc.db.PlayerChar;
+import com.example.cnc.db.User;
+
+import java.util.List;
 
 /**
  * @author Kyle Stefun
@@ -16,7 +23,16 @@ import com.example.cnc.db.CncDatabase;
 
 public class Statics {
   private static CncDao dao;
-  private static CharListActivity charListActivity;
+
+  public static void deleteCampaign(Campaign campaign) { // ever heard of encapsulation?
+    List<PlayerChar> charsInCampaign = dao.getCharsByCampaignId(campaign.getCampaignId());
+    for (PlayerChar pc : charsInCampaign) {
+      pc.setCampaignId(1);
+      dao.update(pc);
+    }
+
+    dao.delete(campaign);
+  }
 
   public static CncDao getDao() {
     return dao;
@@ -25,14 +41,30 @@ public class Statics {
   public static CncDao initDatabase(Context context) {
     dao = Room.databaseBuilder(context, CncDatabase.class, CncDatabase.DATABASE_NAME)
         .allowMainThreadQueries().build().CnCDao();
+    if (dao.getUserByName("testuser1").size() == 0) {
+      dao.insert(new User("testuser1", "testuser1", false));
+    }
+    if (dao.getUserByName("admin2").size() == 0) {
+      dao.insert(new User("admin2", "admin2", true));
+    }
+    if (dao.getUserByName("z").size() == 0) {
+      dao.insert(new User("z", "z", false));
+    }
+    if (dao.getUserByName("x").size() == 0) {
+      dao.insert(new User("x", "x", true));
+    }
+    if (dao.getAllCampaigns().size() == 0) {
+      dao.insert(new Campaign(-1, "No campaign", "", false)); // this will have an ID of 1
+    }
     return dao;
   }
 
-  public static CharListActivity getCharListActivity() {
-    return charListActivity;
-  }
+  // livedata code follows except apparently it isn't needed
 
-  public static void setCharListActivity(CharListActivity charListActivity) {
-    Statics.charListActivity = charListActivity;
-  }
+//  public static MutableLiveData<PlayerChar> getCharData() {
+//    if (charData == null) {
+//      charData = new MutableLiveData<PlayerChar>();
+//    }
+//    return charData;
+//  }
 }

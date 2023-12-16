@@ -42,6 +42,9 @@
     <string name="description">Description</string>
     <string name="nameFilter">Name filter</string>
     <string name="campaignColon">Campaign:</string>
+    <string name="campaignCharListLabel">Characters in %1$s</string>
+    <string name="nameInUseError">Character already exists with that name</string>
+    <string name="deleteUser">Delete user</string>
     <string-array name="racesArray">
         <item>Human</item>
         <item>Dwarf</item>

@@ -197,23 +197,31 @@ public class CharCreateActivity extends AppCompatActivity {
   }
 
   private void create() {
-    if (nameEdit.getText().toString().length() == 0) {
+    PlayerChar newChar = new PlayerChar(userId,
+        campaignList.get(campaignSpinner.getSelectedItemPosition()).getCampaignId(),
+        nameEdit.getText().toString(),
+        CharRace.byId(raceSpinner.getSelectedItemPosition()),
+        CharClass.byId(classSpinner.getSelectedItemPosition()),
+        str, dex, con, wis, intelligence, cha);
+    if (newChar.getName().length() == 0) {
       Toast.makeText(this, "Enter a name",
           Toast.LENGTH_SHORT).show();
       return;
     }
-    if (dao.getCharByName(nameEdit.getText().toString()).size() > 0) {
+    if (dao.getCharByName(newChar.getName()).size() > 0) {
       Toast.makeText(this, "Character already exists with that name",
           Toast.LENGTH_SHORT).show();
       return;
     }
+    if (dao.getCampaignById(newChar.getCampaignId()).get(0).isNameFilterActive()) {
+      String filterResult = newChar.checkName();
+      if (filterResult.length() > 0) {
+        Toast.makeText(this, filterResult, Toast.LENGTH_SHORT).show();
+        return;
+      }
+    }
     if (dao.getCharById(0).size() == 0) {
-      dao.insert(new PlayerChar(userId,
-          campaignList.get(campaignSpinner.getSelectedItemPosition()).getCampaignId(),
-          nameEdit.getText().toString(),
-          CharRace.byId(raceSpinner.getSelectedItemPosition()),
-          CharClass.byId(classSpinner.getSelectedItemPosition()),
-          str, dex, con, wis, intelligence, cha));
+      dao.insert(newChar);
       startActivity(Intents.charList(this));
     }
   }

@@ -1,6 +1,7 @@
 package com.example.cnc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,11 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cnc.databinding.ActivityCampaignCharListBinding;
 import com.example.cnc.databinding.ActivityCharListBinding;
+import com.example.cnc.dataview.CharListAdapter;
 import com.example.cnc.db.CncDao;
 import com.example.cnc.db.PlayerChar;
-import com.example.cnc.recyclerview.CampaignCharListAdapter;
-import com.example.cnc.recyclerview.CharListAdapter;
+import com.example.cnc.dataview.CampaignCharListAdapter;
 
 import java.util.List;
 
@@ -27,7 +29,7 @@ import java.util.List;
  */
 
 public class CampaignCharListActivity extends AppCompatActivity {
-  private ActivityCharListBinding bind;
+  private ActivityCampaignCharListBinding bind;
   private CncDao dao;
   private Integer campaignId;
 
@@ -43,36 +45,42 @@ public class CampaignCharListActivity extends AppCompatActivity {
     initControls();
     dao = Statics.getDao();
     pref = getSharedPreferences(getString(R.string.PreferenceKey), Context.MODE_PRIVATE);
-    campaignId = getIntent().getIntExtra(getString(R.string.CampaignIdKey), -1);
-    charListLabel.setText(getString(R.string.charListLabel,
+    campaignId = getIntent().getIntExtra(Intents.CAMPAIGN_ID_KEY, -1);
+    charListLabel.setText(getString(R.string.campaignCharListLabel,
         dao.getCampaignById(campaignId).get(0).getName()));
-    initRecyclerView();
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    initRecyclerView();
+    initDataView();
   }
 
   private void initControls() {
-    bind = ActivityCharListBinding.inflate(getLayoutInflater());
+    bind = ActivityCampaignCharListBinding.inflate(getLayoutInflater());
     setContentView(bind.getRoot());
-    charListLabel = bind.charListLabel;
-    backButton = bind.playerLogoutButton;
-    recyclerView = bind.charListRecyclerView;
-
+    charListLabel = bind.campaignCharListLabel;
+    backButton = bind.backButton;
+    recyclerView = bind.campaignCharListRecyclerView;
     backButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        finish();
+        startActivity(Intents.campaignList(v.getContext()));
       }
     });
   }
 
-  private void initRecyclerView() {
-    List<PlayerChar> query = dao.getCharsByCampaignId(campaignId);
+  private void initDataView() {
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    refreshRecyclerView();
+
+    final Observer<List<PlayerChar>> charObserver = new Observer<List<PlayerChar>>() {
+      @Override
+      public void onChanged(List<PlayerChar> playerCharList) {
+        refreshRecyclerView();
+      }
+    };
+
+    dao.getCharsByCampaignIdLive(campaignId).observe(this, charObserver);
+  }
+
+  private void refreshRecyclerView() {
+    List<PlayerChar> query = dao.getCharsByCampaignId(campaignId);
     recyclerView.setAdapter(new CampaignCharListAdapter(query, campaignId));
   }
 

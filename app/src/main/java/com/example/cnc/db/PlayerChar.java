@@ -3,6 +3,8 @@ package com.example.cnc.db;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.cnc.R;
+import com.example.cnc.Statics;
 import com.example.cnc.enums.CharClass;
 import com.example.cnc.enums.CharRace;
 
@@ -60,11 +62,40 @@ public class PlayerChar {
     level++;
     int maxHpDifference = calculateMaxHealth() - maxHp;
     maxHp += maxHpDifference;
-    currentHp += maxHpDifference;
+    if(currentHp > 0) currentHp += maxHpDifference;
+  }
+
+  public String checkName() {
+    switch (name) {
+      case "Bilbo Baggins":
+        return "Cease and desist received from Middle-earth Enterprises.";
+      case "Firebert":
+        if(charClass == CharClass.COMMANDO) return "Not a good commando name.";
+        break;
+      case "John Jacob Jingleheimer Schmidt":
+        return "Character already exists with that name";
+      case "Obi-Wan Kenobi":
+        return "Now that's a name I've not heard in a long time... a long time.";
+    }
+    if (name.startsWith("King")) {
+      return "Well I didn't vote for you.";
+    }
+    return "";
   }
 
   public String describe() {
-    return "Level " + level + " " + charRace + " " + charClass;
+    return "Level " + level + " " + charRace + " " + charClass + " - " + tryGetCampaignName();
+
+  }
+
+  public String tryGetCampaignName() {
+    String campaignName;
+    try {
+      campaignName = Statics.getDao().getCampaignById(campaignId).get(0).getName();
+    } catch (Exception e) {
+      return String.valueOf(campaignId);
+    }
+    return campaignName;
   }
 
   public int getCharId() {

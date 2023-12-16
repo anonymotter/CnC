@@ -1,6 +1,7 @@
 package com.example.cnc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityCharListBinding;
 import com.example.cnc.db.PlayerChar;
-import com.example.cnc.recyclerview.CharListAdapter;
+import com.example.cnc.dataview.CharListAdapter;
 
 import java.util.List;
 
@@ -38,28 +39,30 @@ public class CharListActivity extends AppCompatActivity {
   private Button createButton;
   private RecyclerView recyclerView;
 
+  private boolean deleteEnabled;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initControls();
     dao = Statics.getDao();
-    Statics.setCharListActivity(this);
+//    Statics.setCharListActivity(this);
     pref = getSharedPreferences(getString(R.string.PreferenceKey), Context.MODE_PRIVATE);
     userId = pref.getInt(getString(R.string.UserIdKey), -1);
     charListLabel.setText(getString(R.string.charListLabel, dao.getUserById(userId).get(0).getUsername()));
-    initRecyclerView();
+    initDataView();
   }
 
-  @Override
-  protected void onDestroy() {
-    Statics.setCharListActivity(null);
-    super.onDestroy();
-  }
+//  @Override
+//  protected void onDestroy() {
+//    Statics.setCharListActivity(null);
+//    super.onDestroy();
+//  }
 
   @Override
   protected void onResume() {
     super.onResume();
-    initRecyclerView();
+    initDataView();
   }
 
   private void initControls() {
@@ -77,6 +80,14 @@ public class CharListActivity extends AppCompatActivity {
       }
     });
 
+    logoutButton.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View v) {
+        setDeleteEnabled(true);
+        return true;
+      }
+    });
+
     createButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -85,15 +96,34 @@ public class CharListActivity extends AppCompatActivity {
     });
   }
 
-  private void initRecyclerView() {
-    List<PlayerChar> query = dao.getCharsByUserId(userId);
+  private void initDataView() {
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(new CharListAdapter(query));
+    refreshRecyclerView();
+
+    final Observer<List<PlayerChar>> charObserver = new Observer<List<PlayerChar>>() {
+      @Override
+      public void onChanged(List<PlayerChar> playerCharList) {
+        refreshRecyclerView();
+      }
+    };
+
+    dao.getCharsByUserIdLive(userId).observe(this, charObserver);
   }
 
   private void createChar() {
     startActivity(Intents.charCreate(this));
   }
+
+  private void deleteUser() {
+    List<PlayerChar> userChars = dao.getCharsByUserId(userId);
+    for (PlayerChar pc : userChars) {
+      dao.delete(pc);
+    }
+    dao.delete(dao.getUserById(userId).get(0));
+    logout();
+  }
+
+
 
   private void logout() {
     SharedPreferences.Editor prefEdit = pref.edit();
@@ -102,11 +132,30 @@ public class CharListActivity extends AppCompatActivity {
     startActivity(Intents.login(this));
   }
 
+  private void refreshRecyclerView() {
+    List<PlayerChar> query = dao.getCharsByUserId(userId);
+    recyclerView.setAdapter(new CharListAdapter(query));
+  }
+
   public void selectChar(int index) {
     if (dao.getCharById(0).size() != 0) {
       startActivity(Intents.charSheet(this, index));
     } else {
       Toast.makeText(this, "No characters", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+  private void setDeleteEnabled(boolean enabled) {
+    deleteEnabled = enabled;
+    if (enabled) {
+      logoutButton.setText(R.string.deleteUser);
+
+      logoutButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          deleteUser();
+        }
+      });
     }
   }
 }

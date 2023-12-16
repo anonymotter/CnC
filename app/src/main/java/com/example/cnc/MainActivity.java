@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cnc.db.Campaign;
 import com.example.cnc.db.CncDao;
 import com.example.cnc.databinding.ActivityMainBinding;
 import com.example.cnc.db.User;
@@ -45,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
     dao = Statics.initDatabase(this);
     pref = getSharedPreferences(getString(R.string.PreferenceKey),
         Context.MODE_PRIVATE);
-//    detectUser();
-    initUsers();
-
 
     loginButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -112,21 +110,6 @@ public class MainActivity extends AppCompatActivity {
     return false;
   }
 
-  private void initUsers() {
-    if (dao.getUserByName("testuser1").size() == 0) {
-      dao.insert(new User("testuser1", "testuser1", false));
-    }
-    if (dao.getUserByName("admin2").size() == 0) {
-      dao.insert(new User("admin2", "admin2", true));
-    }
-    if (dao.getUserByName("z").size() == 0) {
-      dao.insert(new User("z", "z", false));
-    }
-    if (dao.getUserByName("x").size() == 0) {
-      dao.insert(new User("x", "x", true));
-    }
-  }
-
   private void login() {
     String username = usernameEdit.getText().toString();
     String password = passwordEdit.getText().toString();
@@ -145,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void loginSplit(int userId, String username) {
     if (userIsDm(userId)) {
-      startActivity(Intents.campaignList(this, userId, username));
+      startActivity(Intents.campaignList(this));
     } else {
       startActivity(Intents.charList(this));
     }

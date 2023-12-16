@@ -11,22 +11,25 @@ import android.content.Intent;
 public class Intents {
 
   private static final String PACKAGE_NAME = "com.example.cnc";
-  public static final String USER_ID_KEY = PACKAGE_NAME + "userIdKey";
-  public static final String USERNAME_KEY = PACKAGE_NAME + "usernameKey";
   public static final String CHAR_ID_KEY = PACKAGE_NAME + "charIdKey";
+  public static final String CAMPAIGN_ID_KEY = PACKAGE_NAME + "campaignIdKey";
 
   public static Intent login(Context context) {
     return new Intent(context, MainActivity.class);
+  }
+
+  public static Intent campaignCharList(Context context, int campaignId) {
+    Intent intent = new Intent(context, CampaignCharListActivity.class);
+    intent.putExtra(CAMPAIGN_ID_KEY, campaignId);
+    return intent;
   }
 
   public static Intent campaignCreate(Context context) {
     return new Intent(context, CampaignCreateActivity.class);
   }
 
-  public static Intent campaignList(Context context, int userId, String username) {
+  public static Intent campaignList(Context context) {
     Intent intent = new Intent(context, CampaignListActivity.class);
-    intent.putExtra(USER_ID_KEY, userId);
-    intent.putExtra(USERNAME_KEY, username);
     return intent;
   }
 
@@ -36,8 +39,6 @@ public class Intents {
 
   public static Intent charList(Context context) {
     Intent intent = new Intent(context, CharListActivity.class);
-//    intent.putExtra(USER_ID_KEY, userId);
-//    intent.putExtra(USERNAME_KEY, username);
     return intent;
   }
 

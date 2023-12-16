@@ -1,5 +1,6 @@
 package com.example.cnc.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -39,6 +40,9 @@ public interface CncDao {
   @Query("SELECT * FROM " + CncDatabase.CAMPAIGN_TABLE + " WHERE ownerId = :userId")
   List<Campaign> getCampaignsByUserId(int userId);
 
+  @Query("SELECT * FROM " + CncDatabase.CAMPAIGN_TABLE + " WHERE ownerId = :userId")
+  LiveData<List<Campaign>> getCampaignsByUserIdLive(int userId);
+
   // characters table
   @Insert
   void insert(PlayerChar... playerChars);
@@ -52,6 +56,9 @@ public interface CncDao {
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE campaignId = :campaignId")
   List<PlayerChar> getCharsByCampaignId(int campaignId);
 
+  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE campaignId = :campaignId")
+  LiveData<List<PlayerChar>> getCharsByCampaignIdLive(int campaignId);
+
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE charId = :charId")
   List<PlayerChar> getCharById(int charId);
 
@@ -60,6 +67,9 @@ public interface CncDao {
 
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE ownerId = :userId")
   List<PlayerChar> getCharsByUserId(int userId);
+
+  @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE ownerId = :userId")
+  LiveData<List<PlayerChar>> getCharsByUserIdLive(int userId);
 
 
 

@@ -1,4 +1,4 @@
-package com.example.cnc.recyclerview;
+package com.example.cnc.dataview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +18,8 @@ import java.util.List;
 /**
  * @author Kyle Stefun
  * @since 2023.12.13
- * A class to adapt a PlayerChar RecyclerView for a list of characters, where the on-click effect
- * will add a character to a specified campaign.
+ * A class to adapt a PlayerChar RecyclerView for a list of characters. A long click will remove
+ * a character from the campaign.
  */
 
 public class CampaignCharListAdapter
@@ -34,7 +34,6 @@ public class CampaignCharListAdapter
 
     public CharViewHolder(@NonNull View view, List<PlayerChar> data) {
       super(view);
-//      this.activity = (CharListActivity)parent.getParent();
       view.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -46,7 +45,9 @@ public class CampaignCharListAdapter
       view.setOnLongClickListener(new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-          Statics.getDao().delete(data.get(getAdapterPosition()));
+          PlayerChar removedChar = data.get(getAdapterPosition());
+          removedChar.setCampaignId(1);
+          Statics.getDao().update(removedChar);
           return true;
         }
       });

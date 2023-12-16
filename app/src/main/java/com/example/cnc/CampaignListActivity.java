@@ -8,15 +8,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnc.databinding.ActivityCampaignListBinding;
+import com.example.cnc.dataview.CharListAdapter;
 import com.example.cnc.db.Campaign;
 import com.example.cnc.db.CncDao;
+import com.example.cnc.dataview.CampaignListAdapter;
 import com.example.cnc.db.PlayerChar;
-import com.example.cnc.recyclerview.CampaignListAdapter;
-import com.example.cnc.recyclerview.CharListAdapter;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class CampaignListActivity extends AppCompatActivity {
     userId = pref.getInt(getString(R.string.UserIdKey), -1);
     campaignListLabel.setText(
         getString(R.string.campaignListLabel, dao.getUserById(userId).get(0).getUsername()));
-    initRecyclerView();
+    initDataView();
 //    SharedPreferences prefs = getSharedPreferences("prefkey", Context.MODE_PRIVATE);
 //    prefs.getInt("key", -1);
   }
@@ -75,14 +76,22 @@ public class CampaignListActivity extends AppCompatActivity {
     });
   }
 
-  private void initRecyclerView() {
-    List<Campaign> query = dao.getCampaignsByUserId(userId);
+  private void initDataView() {
+
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(new CampaignListAdapter(query));
+    refreshRecyclerView();
+
+    final Observer<List<Campaign>> campaignObserver = new Observer<List<Campaign>>() {
+      @Override
+      public void onChanged(List<Campaign> playerCharList) {
+        refreshRecyclerView();
+      }
+    };
+
+    dao.getCampaignsByUserIdLive(userId).observe(this, campaignObserver);
   }
 
   private void createCampaign() {
-    //todo: campaign creation
     startActivity(Intents.campaignCreate(this));
   }
 
@@ -91,6 +100,11 @@ public class CampaignListActivity extends AppCompatActivity {
     prefEdit.putInt(getString(R.string.UserIdKey), -1);
     prefEdit.apply();
     startActivity(Intents.login(this));
+  }
+
+  private void refreshRecyclerView() {
+    List<Campaign> query = dao.getCampaignsByUserId(userId);
+    recyclerView.setAdapter(new CampaignListAdapter(query));
   }
 
 }
