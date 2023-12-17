@@ -70,9 +70,7 @@ public interface CncDao {
 
   @Query("SELECT * FROM " + CncDatabase.CHAR_TABLE + " WHERE ownerId = :userId")
   LiveData<List<PlayerChar>> getCharsByUserIdLive(int userId);
-
-
-
+  
   // users table
   @Insert
   void insert(User... users);

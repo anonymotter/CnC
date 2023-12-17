@@ -49,8 +49,6 @@ public class CampaignListActivity extends AppCompatActivity {
     campaignListLabel.setText(
         getString(R.string.campaignListLabel, dao.getUserById(userId).get(0).getUsername()));
     initDataView();
-//    SharedPreferences prefs = getSharedPreferences("prefkey", Context.MODE_PRIVATE);
-//    prefs.getInt("key", -1);
   }
 
   private void initControls() {

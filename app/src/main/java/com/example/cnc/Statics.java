@@ -27,10 +27,9 @@ public class Statics {
   public static void deleteCampaign(Campaign campaign) { // ever heard of encapsulation?
     List<PlayerChar> charsInCampaign = dao.getCharsByCampaignId(campaign.getCampaignId());
     for (PlayerChar pc : charsInCampaign) {
-      pc.setCampaignId(1);
+      pc.setCampaignId(1); // set all characters in the campaign to no campaign
       dao.update(pc);
     }
-
     dao.delete(campaign);
   }
 
@@ -47,24 +46,9 @@ public class Statics {
     if (dao.getUserByName("admin2").size() == 0) {
       dao.insert(new User("admin2", "admin2", true));
     }
-    if (dao.getUserByName("z").size() == 0) {
-      dao.insert(new User("z", "z", false));
-    }
-    if (dao.getUserByName("x").size() == 0) {
-      dao.insert(new User("x", "x", true));
-    }
     if (dao.getAllCampaigns().size() == 0) {
       dao.insert(new Campaign(-1, "No campaign", "", false)); // this will have an ID of 1
     }
     return dao;
   }
-
-  // livedata code follows except apparently it isn't needed
-
-//  public static MutableLiveData<PlayerChar> getCharData() {
-//    if (charData == null) {
-//      charData = new MutableLiveData<PlayerChar>();
-//    }
-//    return charData;
-//  }
 }

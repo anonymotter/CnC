@@ -46,22 +46,9 @@ public class CharListActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     initControls();
     dao = Statics.getDao();
-//    Statics.setCharListActivity(this);
     pref = getSharedPreferences(getString(R.string.PreferenceKey), Context.MODE_PRIVATE);
     userId = pref.getInt(getString(R.string.UserIdKey), -1);
     charListLabel.setText(getString(R.string.charListLabel, dao.getUserById(userId).get(0).getUsername()));
-    initDataView();
-  }
-
-//  @Override
-//  protected void onDestroy() {
-//    Statics.setCharListActivity(null);
-//    super.onDestroy();
-//  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
     initDataView();
   }
 
@@ -135,14 +122,6 @@ public class CharListActivity extends AppCompatActivity {
   private void refreshRecyclerView() {
     List<PlayerChar> query = dao.getCharsByUserId(userId);
     recyclerView.setAdapter(new CharListAdapter(query));
-  }
-
-  public void selectChar(int index) {
-    if (dao.getCharById(0).size() != 0) {
-      startActivity(Intents.charSheet(this, index));
-    } else {
-      Toast.makeText(this, "No characters", Toast.LENGTH_SHORT).show();
-    }
   }
 
   private void setDeleteEnabled(boolean enabled) {

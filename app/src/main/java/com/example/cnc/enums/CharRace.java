@@ -2,7 +2,7 @@ package com.example.cnc.enums;
 
 public enum CharRace {
   HUMAN(0, "Human"),
-  DWARF(1, "Dwarf"),
+  ORC(1, "Orc"),
   VULCAN(2, "Vulcan"),
   HUTT(3, "Hutt"),
   URQUAN(4, "Ur-Quan"),

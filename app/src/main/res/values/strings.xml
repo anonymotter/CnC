@@ -47,7 +47,7 @@
     <string name="deleteUser">Delete user</string>
     <string-array name="racesArray">
         <item>Human</item>
-        <item>Dwarf</item>
+        <item>Orc</item>
         <item>Vulcan</item>
         <item>Hutt</item>
         <item>Ur-Quan</item>

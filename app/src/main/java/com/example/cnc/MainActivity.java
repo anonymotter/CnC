@@ -89,16 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  private void detectUser() {
-    int userId = pref.getInt(getString(R.string.UserIdKey), -1);
-    if (userId >= 0) {
-      List<User> query = dao.getUserById(userId);
-      if (query.size() > 0) {
-        loginSplit(userId, query.get(0).getUsername());
-      }
-    }
-  }
-
   private boolean fieldsAreEmpty(String username, String password) {
     if (username.isEmpty()) {
       Toast.makeText(this, "Enter username", Toast.LENGTH_SHORT).show();
@@ -122,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
       prefEdit.apply();
       loginSplit(query.get(0).getUserId(), query.get(0).getUsername());
     } else {
-      Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
     }
   }
 

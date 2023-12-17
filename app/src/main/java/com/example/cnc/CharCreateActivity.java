@@ -29,6 +29,7 @@ import java.util.List;
 /**
  * @author Kyle Stefun
  * @since 2023.12.10
+ * Activity for creating a character.
  */
 
 public class CharCreateActivity extends AppCompatActivity {

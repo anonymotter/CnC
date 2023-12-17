@@ -33,8 +33,6 @@ public class PlayerChar {
   private int intelligence;
   private int cha;
 
-//  public PlayerChar() {};
-
   public PlayerChar(int ownerId, int campaignId,
                     String name, CharRace charRace, CharClass charClass,
                     int str, int dex, int con, int wis, int intelligence, int cha) {

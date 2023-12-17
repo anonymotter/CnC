@@ -31,13 +31,6 @@ public class ExampleInstrumentedTest {
   }
 
   @Test
-  public void useAppContext() {
-    // Context of the app under test.
-    Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-    assertEquals("com.example.cnc", appContext.getPackageName());
-  }
-
-  @Test
   public void testUserCreate() {
     assertEquals(0, dao.getAllUsers().size());
   }

@@ -81,7 +81,7 @@ public class CampaignCharListActivity extends AppCompatActivity {
 
   private void refreshRecyclerView() {
     List<PlayerChar> query = dao.getCharsByCampaignId(campaignId);
-    recyclerView.setAdapter(new CampaignCharListAdapter(query, campaignId));
+    recyclerView.setAdapter(new CampaignCharListAdapter(query));
   }
 
   public void selectChar(int index) {

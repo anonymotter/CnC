@@ -25,7 +25,6 @@ import java.util.List;
 public class CampaignCharListAdapter
     extends RecyclerView.Adapter<CampaignCharListAdapter.CharViewHolder> {
   private List<PlayerChar> data;
-  private int campaignId; // this is the campaign to which characters will be added
 
   public static class CharViewHolder extends RecyclerView.ViewHolder {
 
@@ -56,9 +55,8 @@ public class CampaignCharListAdapter
     }
   }
 
-  public CampaignCharListAdapter(List<PlayerChar> data, int campaignId) {
+  public CampaignCharListAdapter(List<PlayerChar> data) {
     this.data = data;
-    this.campaignId = campaignId;
   }
 
   @NonNull
