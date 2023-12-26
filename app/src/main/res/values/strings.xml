@@ -1,0 +1,70 @@
+<resources>
+    <string name="PreferenceKey">PreferenceKey</string>
+    <string name="UserIdKey">UserIdKey</string>
+    <string name="CampaignIdKey">CampaignIdKey</string>
+    <string name="app_name">CnC</string>
+    <string name="loginVerb">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="createUser">Create user</string>
+    <string name="charListLabel">%1$s\'s characters</string>
+    <string name="loggingIn">Logging in…</string>
+    <string name="campaignListLabel">%1$s\'s campaigns</string>
+    <string name="logOut">Log out</string>
+    <string name="takeDamage">Take damage</string>
+    <string name="rest">Rest</string>
+    <string name="levelUp">Level up</string>
+    <string name="hp">HP:</string>
+    <string name="create">Create</string>
+    <string name="createNew">Create new</string>
+    <string name="createCharacter">Create character</string>
+    <string name="str">STR</string>
+    <string name="strColon">STR:</string>
+    <string name="name">Name</string>
+    <string name="dexColon">DEX:</string>
+    <string name="conColon">CON:</string>
+    <string name="wisColon">WIS:</string>
+    <string name="intColon">INT:</string>
+    <string name="chaColon">CHA:</string>
+    <string name="raceColon">Race:</string>
+    <string name="classColon">Class:</string>
+    <string name="back">Back</string>
+    <string name="goBack">Go back</string>
+    <string name="defaultAttribute">10</string>
+    <string name="resurrect">Resurrect</string>
+    <string name="strDisplay">STR %1$s</string>
+    <string name="dexDisplay">DEX %1$s</string>
+    <string name="conDisplay">CON %1$s</string>
+    <string name="wisDisplay">WIS %1$s</string>
+    <string name="intDisplay">INT %1$s</string>
+    <string name="chaDisplay">CHA %1$s</string>
+    <string name="create_campaign">Create campaign</string>
+    <string name="description">Description</string>
+    <string name="nameFilter">Name filter</string>
+    <string name="campaignColon">Campaign:</string>
+    <string name="campaignCharListLabel">Characters in %1$s</string>
+    <string name="nameInUseError">Character already exists with that name</string>
+    <string name="deleteUser">Delete user</string>
+    <string-array name="racesArray">
+        <item>Human</item>
+        <item>Orc</item>
+        <item>Vulcan</item>
+        <item>Hutt</item>
+        <item>Ur-Quan</item>
+        <item>Cheat</item>
+        <item>Indianapolis 500</item>
+    </string-array>
+    <string-array name="classesArray">
+        <item>Warrior</item>
+        <item>Thief</item>
+        <item>Wizard</item>
+        <item>Commando</item>
+        <item>Mathematician</item>
+        <item>Problem Sleuth</item>
+        <item>Proletariat</item>
+        <item>MainActivity</item>
+        <item>Mammalia</item>
+        <item>CST 338</item>
+    </string-array>
+
+</resources>
